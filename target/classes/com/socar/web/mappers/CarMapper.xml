@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.socar.web.mappers.CarMapper">
+<select id="list" resultType="com.socar.web.domains.CarDTO" parameterType="com.socar.web.domains.Command">
+      select t2.*
+from (SELECT c.seq     seq
+            ,c.car_num carNum
+            ,c.car_type carType
+            ,c.oil_type oilType
+            ,c.car_option carOption
+            ,c.socar_zone socarZone
+            ,c.rent_amt rentAmt
+            ,c.drive_amt driveAmt
+      FROM   car_v c
+     ) t2
+where t2.seq between #{start} and #{end}
+order by t2.seq asc
+   </select>
+   <select id="count" resultType="com.socar.web.domains.Retval" parameterType="com.socar.web.domains.Retval">
+   	select count(*) as count from car_v
+   </select>
+   <select id="find_count" resultType="com.socar.web.domains.Retval" parameterType="com.socar.web.domains.Command">
+   	select count(*) as count 
+   	from   (SELECT c.seq     seq
+	            ,c.car_num carNum
+	            ,c.car_type carType
+	            ,c.oil_type oilType
+	            ,c.car_option carOption
+	            ,c.socar_zone socarZone
+	            ,c.rent_amt rentAmt
+	            ,c.drive_amt driveAmt
+	      FROM   car_v c
+	     ) t2
+   	where  ${keyField} like CONCAT('%',#{keyword},'%')
+   </select>
+	<select id="find" resultType="com.socar.web.domains.CarDTO" parameterType="com.socar.web.domains.Command">
+	select t2.*
+	from (select @ROWNUM := @ROWNUM + 1 AS seq
+                ,c.car_num carNum
+	            ,c.car_type carType
+	            ,c.oil_type oilType
+	            ,c.car_option carOption
+	            ,c.socar_zone socarZone
+	            ,c.rent_amt rentAmt
+	            ,c.drive_amt driveAmt
+	      from   car_v c
+	            ,(SELECT @ROWNUM := 0) R
+	      where c.car_type like CONCAT('%',#{keyword},'%')
+	     ) t2
+	where t2.seq between #{start} and #{end}
+	order by t2.seq asc
+   </select>
+</mapper>
