@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.socar.web.mappers.AdminMapper">
+   <select id="notice_list" resultType="com.socar.web.domains.AdminDTO" parameterType="com.socar.web.domains.Command">
+      select t2.*
+from (select n.num   seq
+            ,n.title title
+            ,n.content content
+            ,DATE_FORMAT(reg_date, '%Y-%m-%d') regDate
+            ,n.customer_seq  customerSeq
+	  from   notice n
+     ) t2
+where t2.seq between #{start} and #{end}
+order by t2.seq asc
+   </select>
+   <select id="notice_count" resultType="com.socar.web.domains.Retval" parameterType="com.socar.web.domains.Retval">
+   select count(*) as count from notice
+   </select>
+	<select id="notice_find" resultType="com.socar.web.domains.AdminDTO" parameterType="com.socar.web.domains.Command">
+      select n.num seq
+            ,n.title
+            ,n.content content
+            ,DATE_FORMAT(reg_date, '%Y-%m-%d') regDate
+            ,n.customer_seq  customerSeq
+      from    notice n where ${keyField} like CONCAT('%',#{keyword},'%')
+   </select>
+   </mapper>
