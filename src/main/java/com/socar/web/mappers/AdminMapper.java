@@ -17,4 +17,6 @@ public interface AdminMapper {
 	public List<AdminDTO> notice_list(Command command);
 	public Retval find_count(Command command);
 	public List<?> notice_find(Command command);
+	public AdminDTO notice_find_by_seq(Command command);
+	public int regist(AdminDTO param);
 }

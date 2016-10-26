@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import com.socar.web.domains.AdminDTO;
 import com.socar.web.domains.Command;
 import com.socar.web.domains.CouponDTO;
 import com.socar.web.domains.CustomerDTO;
@@ -22,4 +23,5 @@ public interface CustomerService {
 	public List<CustomerDTO> list(Command command);
 	public Retval find_count(Command command);
 	public List<?> find(Command command);
+	public CustomerDTO customer_find_by_seq(Command command);
 }

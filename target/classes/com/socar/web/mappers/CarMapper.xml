@@ -5,15 +5,17 @@
 <mapper namespace="com.socar.web.mappers.CarMapper">
 <select id="list" resultType="com.socar.web.domains.CarDTO" parameterType="com.socar.web.domains.Command">
       select t2.*
-from (SELECT c.seq     seq
-            ,c.car_num carNum
-            ,c.car_type carType
-            ,c.oil_type oilType
-            ,c.car_option carOption
-            ,c.socar_zone socarZone
-            ,c.rent_amt rentAmt
-            ,c.drive_amt driveAmt
+from (SELECT @ROWNUM := @ROWNUM + 1 AS seq
+            ,c.carNum
+            ,c.carType
+            ,c.oilType
+            ,c.carOption
+            ,c.socarZone
+            ,c.rentAmt
+            ,c.driveAmt
+            ,c.carImg
       FROM   car_v c
+            ,(SELECT @ROWNUM := 0) R
      ) t2
 where t2.seq between #{start} and #{end}
 order by t2.seq asc
@@ -23,33 +25,48 @@ order by t2.seq asc
    </select>
    <select id="find_count" resultType="com.socar.web.domains.Retval" parameterType="com.socar.web.domains.Command">
    	select count(*) as count 
-   	from   (SELECT c.seq     seq
-	            ,c.car_num carNum
-	            ,c.car_type carType
-	            ,c.oil_type oilType
-	            ,c.car_option carOption
-	            ,c.socar_zone socarZone
-	            ,c.rent_amt rentAmt
-	            ,c.drive_amt driveAmt
+   	from   (SELECT c.seq
+	            ,c.carNum
+	            ,c.carType
+	            ,c.oilType
+	            ,c.carOption
+	            ,c.socarZone
+	            ,c.rentAmt
+	            ,c.driveAmt
+	            ,c.carImg
 	      FROM   car_v c
+	      WHERE  ${keyField} like CONCAT('%',#{keyword},'%')
 	     ) t2
-   	where  ${keyField} like CONCAT('%',#{keyword},'%')
    </select>
 	<select id="find" resultType="com.socar.web.domains.CarDTO" parameterType="com.socar.web.domains.Command">
 	select t2.*
 	from (select @ROWNUM := @ROWNUM + 1 AS seq
-                ,c.car_num carNum
-	            ,c.car_type carType
-	            ,c.oil_type oilType
-	            ,c.car_option carOption
-	            ,c.socar_zone socarZone
-	            ,c.rent_amt rentAmt
-	            ,c.drive_amt driveAmt
+                ,c.carNum
+	            ,c.carType
+	            ,c.oilType
+	            ,c.carOption
+	            ,c.socarZone
+	            ,c.rentAmt
+	            ,c.driveAmt
+	            ,c.carImg
 	      from   car_v c
 	            ,(SELECT @ROWNUM := 0) R
-	      where c.car_type like CONCAT('%',#{keyword},'%')
+	      where ${keyField} like CONCAT('%',#{keyword},'%')
 	     ) t2
 	where t2.seq between #{start} and #{end}
 	order by t2.seq asc
+   </select>
+   <select id="car_find_by_num" resultType="com.socar.web.domains.CarDTO" parameterType="com.socar.web.domains.Command">
+      select  c.seq
+             ,c.carNum
+		     ,c.carType
+		     ,c.oilType
+		     ,c.carOption
+		     ,c.socarZone
+		     ,c.rentAmt
+		     ,c.driveAmt
+		     ,c.carImg
+	  FROM    car_v c
+	  where ${keyField} = #{keyword}
    </select>
 </mapper>

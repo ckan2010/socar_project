@@ -13,6 +13,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCFxM5E0mS_-s7epFVXJhXGOYYAwNYMvoE"></script>
+<link href="${css}/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="${js}/jquery-ui.js"></script>
 <html lang="en">
 <head>
 	<title><tiles:getAsString name="title"/></title>

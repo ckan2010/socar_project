@@ -11,6 +11,6 @@ import lombok.Setter;
 @Data
 @Lazy
 public class CarDTO {
-	@Getter @Setter private int rentAmt, driveAmt;
+	@Getter @Setter private int rentAmt, driveAmt,seq;
 	@Getter @Setter private String carNum, carType, oilType, carOption, socarZone, carImg;
 }

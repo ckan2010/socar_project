@@ -45,4 +45,20 @@ public class AdminServiceImpl implements AdminService{
 		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
 		return mapper.notice_find(command);
 	}
+	@Override
+	public AdminDTO notice_find_by_seq(Command command) {
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		return mapper.notice_find_by_seq(command);
+	}
+	@Override
+	public Retval regist(AdminDTO param) {
+		AdminMapper mapper = sqlSession.getMapper(AdminMapper.class);
+		int result = mapper.regist(param);
+		if(result==0){
+			ret.setMessage("fail");
+		}else{
+			ret.setMessage("success");
+		}
+		return ret;
+	}
 }

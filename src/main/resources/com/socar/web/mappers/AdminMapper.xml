@@ -5,15 +5,17 @@
 <mapper namespace="com.socar.web.mappers.AdminMapper">
    <select id="notice_list" resultType="com.socar.web.domains.AdminDTO" parameterType="com.socar.web.domains.Command">
       select t2.*
-from (select n.num   seq
-            ,n.title title
-            ,n.content content
-            ,DATE_FORMAT(reg_date, '%Y-%m-%d') regDate
-            ,n.customer_seq  customerSeq
-	  from   notice n
-     ) t2
-where t2.seq between #{start} and #{end}
-order by t2.seq asc
+	  from (select @ROWNUM := @ROWNUM + 1 AS seq
+	              ,n.title
+	              ,n.content
+	              ,DATE_FORMAT(n.regDate, '%Y-%m-%d') regDate
+	              ,n.customerSeq
+  		    from   notice n
+		          ,(SELECT @ROWNUM := 0) R
+		    ORDER BY n.regDate DESC
+	       ) t2
+	  where t2.seq between #{start} and #{end}
+	  order by t2.seq asc
    </select>
    <select id="notice_count" resultType="com.socar.web.domains.Retval" parameterType="com.socar.web.domains.Retval">
 	   select count(*) as count 
@@ -21,23 +23,44 @@ order by t2.seq asc
    </select>
    <select id="find_count" resultType="com.socar.web.domains.Retval" parameterType="com.socar.web.domains.Command">
    	select count(*) as count 
-   	from   notice 
-   	where  ${keyField} like CONCAT('%',#{keyword},'%')
+   	from   (select  n.title
+   	               ,n.content
+   	               ,DATE_FORMAT(n.regDate, '%Y-%m-%d') regDate
+   	               ,n.customerSeq
+   	 	    from    notice n
+   	 	    WHERE   ${keyField} like CONCAT('%',#{keyword},'%')
+   	       ) t
    </select>
 	<select id="notice_find" resultType="com.socar.web.domains.AdminDTO" parameterType="com.socar.web.domains.Command">
       select t2.*
 	  from (select @ROWNUM := @ROWNUM + 1 AS seq
 	              ,n.title
-	              ,n.content content
-	              ,DATE_FORMAT(reg_date, '%Y-%m-%d') regDate
-	              ,n.customer_seq  customerSeq
-	        from   customer n
+	              ,n.content
+	              ,DATE_FORMAT(regDate, '%Y-%m-%d') regDate
+	              ,n.customerSeq  
+	        from   notice n
 	              ,(SELECT @ROWNUM := 0) R
-	        where  ${keyField} like CONCAT('%',#{keyword},'%')
-	        and    n.id is null
-	        and    n.role = 'NOTICE'
-	       )t2
-	   where t2.seq between #{start} and #{end}  
+	        WHERE  ${keyField} like CONCAT('%',#{keyword},'%')
+	       ) t2
+	   where t2.seq between #{start} and #{end}   
 	   order by t2.seq asc	  
    </select>
+   <select id="notice_find_by_seq" resultType="com.socar.web.domains.AdminDTO" parameterType="com.socar.web.domains.Command">
+      select t2.*
+	  from (select n.title
+	              ,n.content
+	              ,DATE_FORMAT(n.regDate, '%Y-%m-%d') regDate
+	              ,n.customerSeq
+	        from   notice n
+	        where  ${keyField} = #{keyword}
+	       ) t2
+   </select>
+   <insert id="regist" statementType="CALLABLE" parameterType="com.socar.web.domains.AdminDTO">
+      { call MYSQL.INSERT_NOTICE(
+         #{title, mode=IN,jdbcType=VARCHAR},
+         #{content, mode=IN,jdbcType=CLOB},
+         #{regDate, mode=IN,jdbcType=VARCHAR}
+      )
+      }
+   </insert>
    </mapper>

@@ -28,6 +28,19 @@ var ADMIN_NOTICE = '<div id="admin_notice" class="notice1 box">'
 	+'</fieldset>'
 	+'</div>'
 	;
+var ADMIN_NOTICE_FIND = '<div id="admin_notice" class="notice1 box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">묻의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'
+	+'<div style="margin-top: 30px; margin-left: 170px;" class="section1">'
+	+'<h3><img style="margin-bottom: 15px; margin-left: 10px;" src="'+app.img()+'/h3_notice.gif" alt="공지사항"></h3>'
+	;
 var ADMIN_NOTICE_TH = '<table cellspacing="0" summary="공지사항" class="cols">'
 	+'<colgroup><col width="65"><col><col width="105"></colgroup>'
 	+'<thead>'
@@ -51,7 +64,7 @@ var ADMIN_NOTICE_CONTENT = '<div id= "admin_notice" class="notice1 box">'
 	+'</ul>'
 	+'<div style="margin-top: 30px; margin-left: 170px;" class="section1">'
 	+'<h3><img style="margin-bottom: 15px; margin-left: 165px;" src="'+app.img()+'/h3_notice.gif" alt="공지사항"></h3>'	;
-var ADMIN_NOTICE_CONTENT_TH='<table cellspacing="0" summary="공지사항" class="cols">'
+var ADMIN_NOTICE_CONTENT_TH='<table id="notice_content" cellspacing="0" summary="공지사항" class="cols">'
 	+'<colgroup><col><col width="105"></colgroup>'
 	+'<thead>'
 	+'<tr>'
@@ -60,8 +73,17 @@ var ADMIN_NOTICE_CONTENT_TH='<table cellspacing="0" summary="공지사항" class
 	+'</tr>'
 	+'</thead>'
 	+'<tbody>';
-
-var ADMIN_INQUIRY = '<div id= "admin_answer" class="box">'
+var ADMIN_NOTICE_CONTENT_ROW = '<tr>'
+	+'<td id="content_title" class="subj" ></td>'
+	+'<td id="content_regdate"></td>'
+	+'</tr>'
+	+'</tbody>'
+	+'</table>'
+	+'<div id="admin_notice_content" class="viewCont">'
+	+'</div>'
+	+'<p class="centerBtn"><a href="#" onclick="admin.admin_notice_form(1)"><img src="'+app.img()+'/btn_list.gif" alt="목록보기"></a></p>'
+	+'</div>';
+var ADMIN_NOTICE_WRITE = '<div id= "admin_notice" class="notice1 box">'
 	+'<div id="container">'
 	+'<div id="content">'
 	+'<div class="admin_lnb">'
@@ -72,10 +94,52 @@ var ADMIN_INQUIRY = '<div id= "admin_answer" class="box">'
 	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
 	+'</ul>'
 	+'<div class="section1">'
-	+'<h3><img style="margin-top: 15px; margin-bottom: 15px;" src="'+app.img()+'/qna.gif" alt="묻의&답변">'
+	+'<h3><img src="'+app.img()+'/h3_notice.gif" alt="공지사항"></h3>'
+	+'<form id="admin_notice_write_form" accept-charset="utf-8" enctype="multipart/form-data">'
+	+'<fieldset>'
+	+'<table cellspacing="0" class="rows">'
+	+'<tbody>'
+	+'<tr>'
+	+'<th><img src="'+app.img()+'/inquiry_txt3.gif" alt="제목 / 내용"></th>'
+	+'<td>'
+	+'<input id="adm_notice_title" type="text" name="title" class="input" value="" style="width:90%; margin-bottom: 20px">'
+	+'<textarea id="adm_notice_contents" cols="" name="contents" rows="15" class="textarea" style="width:90%"></textarea>'
+	+'</td>'
+	+'</tr>'
+	+'</tbody></table>'
+	+'<p class="centerBtn">'
+	+'<input id="btn_notice_write_submit" type="submit" value="" class="btn_submit">'
+	+'</p>'
+	+'</fieldset>'
+	+'</form>'
+	+'</div>'
+	+'</div>'
+	+'</div>'
+	+'</div>'
+	+'</div>';
+var ADMIN_INQUIRY = '<div id= "admin_answer" class="box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'
+	+'<div style="margin-top: 30px; margin-left: 170px;" class="section1">'
+	+'<h3><img style="margin-bottom: 15px; margin-left: 10px;" src="'+app.img()+'/qna.gif" alt="묻의&답변">'
 	+'</h3>'
-	+'<table style="width: 89%" cellspacing="0" summary="공지사항" class="cols">'
-	+'<colgroup><col width="65"><col width="65"><col width="200"><col width="65"><col width="65"></colgroup>'
+	+'<div style="position:absolute; top:135px; right:60px;" class="notice-search">'
+	+'<fieldset>'
+	+'<input type="text" name="inquiry_keyword" id="inquiry_keyword" class="input">'
+	+'<input id="btn_inquiry_search" type="image" src="'+app.img()+'/btn_notice_search.gif" alt="검색">'
+	+'</fieldset>'
+	+'</div>'
+	;
+var ADMIN_INQUIRY_TH =
+	 '<table cellspacing="0" summary="공지사항" class="cols">'
+	+'<colgroup><col width="65"><col width="130"><col width="400"><col width="80"><col width="150"></colgroup>'
 	+'<thead>'
 	+'<tr>'
 	+'<th>번호</th>'
@@ -86,84 +150,64 @@ var ADMIN_INQUIRY = '<div id= "admin_answer" class="box">'
 	+'</tr>'
 	+'</thead>'
 	+'<tbody>'
-	+'<tr>'
-	+'<td>48</td>'
-	+'<td>예약/결제문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">딱 10분을 남겨두고 반납했어요. 바로반납 혜택이 제공이 되나요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
+	;
+var ADMIN_INQUIRY_FIND = '<div id= "admin_answer" class="box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'
+	+'<div style="margin-top: 30px; margin-left: 170px;" class="section1">'
+	+'<h3><img style="margin-bottom: 15px; margin-left: 10px;" src="'+app.img()+'/qna.gif" alt="묻의&답변">'
+	+'</h3>'
+	;
+var ADMIN_ANSWER = '<div id="admin_answer" class="box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'
+	+'<div class="section1">'
+	+'<h3><img src="'+app.img()+'/qna.jpg" alt="묻의&답변"></h3>'
+	+'<form id="admin_answer_form" accept-charset="utf-8" enctype="multipart/form-data">'
+	+'<fieldset>'
+	+'<table cellspacing="0" class="rows">'
+	+'<tbody><tr>'
+	+'<th><img src="'+app.img()+'/inquiry_txt2.gif" alt="문의분류"></th>'
+	+'<td style="width:165px" name="category" id="customer_category">'
+	+'</td>'
 	+'</tr>'
 	+'<tr>'
-	+'<td>49</td>'
-	+'<td>예약/결제문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">바로반납 혜택이 아직 들어오지 않았어요!</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
+	+'<th><img src="'+app.img()+'/inquiry_txt3.gif" alt="제목 / 내용"></th>'
+	+'<td id="customer_title" name="title" class="input" style="width:400px">'
+	+'</td>'
 	+'</tr>'
 	+'<tr>'
-	+'<td>50</td>'
-	+'<td>예약/결제문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">편도나 D2D 서비스의 경우에도 바로반납 혜택이 적용되나요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
+	+'<td>'
+	+'</td>'
+	+'<td id="customer_content">'
+	+'</td>'
 	+'</tr>'
 	+'<tr>'
-	+'<td>51</td>'
-	+'<td>예약/결제문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">잔액부족으로 결제가 이루어지지 않은 경우에도 바로반납을 할 경우 혜택을 받을 수 있나요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
+	+'<th><img src="'+app.img()+'/answer_title.jpg" alt="답변"></th>'
+	+'<td>'
+	+'<textarea id="customer_answer" cols="" name="contents" rows="15" class="textarea" style="width:750px"></textarea>'
+	+'</td>'
 	+'</tr>'
-	+'<tr>'
-	+'<td>52</td>'
-	+'<td>예약/결제문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">바로반납으로 받은 혜택의 유효기간은 언제까지 인가요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td>53</td>'
-	+'<td>예약/결제문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">예약 앞당기기, 반납연장을 했어요. 이때 발생한 시간도 바로반납 혜택에 포함되나요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td>54</td>'
-	+'<td>가입문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">회원카드는 어떻게 구매할 수 있나요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td>55</td>'
-	+'<td>가입문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">회원카드는 언제, 어떻게 등록할 수 있나요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td>56</td>'
-	+'<td>가입문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">구매한 회원카드를 수령하신 이후, 모바일앱 마이페이지 > 내 정보 > 차량제어수단 > 카드수정 에서 회원카드번호 7자리를 등록해주세요.※ 회원카드 수령과 관계없이 가입승인 후 모바일앱/웹 스마트키로 쏘카를 이용하실 수 있습니다.</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td>57</td>'
-	+'<td>가입문의</td>'
-	+'<td class="subj"><a id="a_admin_answer">회원카드를 직접 방문수령하여 받을 수 있나요?</a></td>'
-	+'<td>bae1</td>'
-	+'<td>2016.10.11</td>'
-	+'</tr>'
-	+'</tbody>'
-	+'</table>'
-	+'<div id="admin_paginate" class="paginate">'
-	+'&nbsp;<strong>1</strong>&nbsp;<a href="">2</a>&nbsp;<a href="">3</a>&nbsp;<a href="">4</a>'
-	+'&nbsp;<a href="">5</a>&nbsp;<a href="">6</a>&nbsp;<a href="">7</a>&nbsp;<a href="">8</a>'
-	+'&nbsp;<a href="">9</a>&nbsp;<a href="">10</a>&nbsp;<a href="">11</a>'
-	+'&nbsp;<a href="">&gt;</a>'
-	+'</div>'
+	+'</tbody></table>'
+	+'<p class="centerBtn">'
+	+'<input id="btn_answer_submit" type="submit" value="" class="btn_submit">'
+	+'</p>'
+	+'</fieldset>'
+	+'</form>'
 	+'</div>'
 	+'</div>'
 	+'</div>'
@@ -179,13 +223,24 @@ var ADMIN_CAR = '<div id= "admin_car" class="box">'
 +'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
 +'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
 +'</ul>'+''
-+'<div class="section1">'
-+'<h3><img style="padding-top: 15px; padding-bottom: 15px" src="'+app.img()+'/car_mag.jpg" alt="차량관리">'
++'<div style="margin-top: 30px; margin-left: 170px;" class="section1">'
++'<h3><img style="margin-bottom: 15px; margin-left: 10px;" src="'+app.img()+'/car_mag.jpg" alt="차량관리"></h3>'
++'<div style="position:absolute; top:135px; right:60px;" class="notice-search">'
++'<fieldset>'
++'<select name="admin_car_keyField" id="admin_car_keyField">'
++'<option value="socarZone" selected>쏘카존</option>'
++'<option value="carType">차량</option>'
++'</select>'
++'<input type="text" name="admin_car_keyword" id="admin_car_keyword" class="input">'
++'<input id="btn_car_search" type="image" src="'+app.img()+'/btn_notice_search.gif" alt="검색">'
 +'<a id="a_admin_car_regist">'
-+'<input style="padding-top: 15px; float: right;" id="btn_car_regist" type="image" src="'+app.img()+'/notice_write.gif" alt="등록" >'
++'<input id="btn_car_regist" type="image" src="'+app.img()+'/notice_write.gif" alt="등록">'
 +'</a>'
-+'</h3>'
-+'<table style="margin-left: 0" cellspacing="0" summary="차량관리" class="admin_cols">'
++'</fieldset>'
++'</div>'
+;
+var ADMIN_CAR_TH =
+ '<table style="margin-left: 0" cellspacing="0" summary="차량관리" class="admin_cols">'
 +'<colgroup><col width="84"><col width="137"><col width="200"><col width="84"><col width="200"><col width="200"><col width="84"><col></colgroup>'
 +'<thead>'
 +'<tr>'
@@ -200,154 +255,87 @@ var ADMIN_CAR = '<div id= "admin_car" class="box">'
 +'</tr>'
 +'</thead>'
 +'<tbody>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">11가1234</a></td>'
-+'<td>서울대입구역 6번출구(토마스빌)</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,620원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">11너1234</a></td>'
-+'<td>서울역 12번출구(트윈시티남산)</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car28.png" id="car_thumb"><p>티볼리 뽈뽀리</p></td>'
-+'<td>경유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>3,320원</td>'
-+'<td>160원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">11다1244</a></td>'
-+'<td>신촌기차역 광장</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car15.png" id="car_thumb"><p>엑센트  엑센트리올</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,390원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">12라2233</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car15.png" id="car_thumb"><p>엑센트  크레센도</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,390원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">12마3333</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car1_new2.png" id="car_thumb"><p>레이 다우니</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'<tr>'
-+'<td class="subj"><a id="a_admin_car_update">15카8989</a></td>'
-+'<td>증산시장 앞</td>'
-+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car22.png" id="car_thumb"><p>아반떼AD 계반떼</p></td>'
-+'<td>휘발유</td>'
-+'<td>오토변속기어, 내비게이션, 블랙박스</td>'
-+'<td>2,130원</td>'
-+'<td>170원/km</td>'
-+'</tr>'
-+'</tbody>'
-+'</table>'
-+'<div id="admin_paginate" class="paginate">'
-+'&nbsp;<strong>1</strong>&nbsp;<a href="">2</a>&nbsp;<a href="">3</a>&nbsp;<a href="">4</a>'
-+'&nbsp;<a href="">5</a>&nbsp;<a href="">6</a>&nbsp;<a href="">7</a>&nbsp;<a href="">8</a>'
-+'&nbsp;<a href="">9</a>&nbsp;<a href="">10</a>&nbsp;<a href="">11</a>'
-+'&nbsp;<a href="">&gt;</a>'
-+'</div>'
-+'</div>'
-+'</div>'
-+'</div>'
-+'</div>'
-+'</div>';
+;
+var ADMIN_CAR_FIND = '<div id= "admin_car" class="box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'+''
+	+'<div style="margin-top: 30px; margin-left: 170px;" class="section1">'
+	+'<h3><img style="margin-bottom: 15px; margin-left: 10px;" src="'+app.img()+'/car_mag.jpg" alt="차량관리">'
+	+'<div style="position:absolute; top:135px; right:60px;" class="notice-search">'
+	+'</h3>'
+	;
+var ADMIN_CAR_UPDATE = '<div id= "admin_car" class="box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'
+	+'<div class="section1">'
+	+'<h3><img src="'+app.img()+'/car_mag.jpg" alt="차량관리"></h3>'
+	+'<form id="admin_car_update" method="post" accept-charset="utf-8" enctype="multipart/form-data">'
+	+'<fieldset>'
+	+'<table cellspacing="0" class="rows">'
+	+'<tbody>'
+	+'<tr>'
+	+'<th>차량번호</th>'
+	+'<td id="admin_car_num"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>쏘카존</th>'
+	+'<td id="u_admin_socar_zone">'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>차량</th>'
+	+'<td><img id="admin_car_img" src="" style="width: 100px;height: 100px; float: left;"></td>'
+	+'<td id="u_admin_img_name"></td>'
+	+'<td id="admin_car_type"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>유종</th>'
+	+'<td id="u_admin_oil_type"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>옵션</th>'
+	+'<td>'
+	+'<input id="admin_car_option" type="text" name="option" class="input" value="" style="width:400px">'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>대여요금</th>'
+	+'<td>'
+	+'<input id="admin_rent_amt" type="text" name="option" class="input" value="" style="width:100px">'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>주행요금</th>'
+	+'<td>'
+	+'<input id="admin_drive_amt" type="text" name="option" class="input" value="" style="width:100px">'
+	+'</td>'
+	+'</tr>'
+	+'</tbody>'
+	+'</table>'
+	+'<p class="centerBtn">'
+	+'<input id="btn_admin_car_update" type="submit" value="" class="btn_submit">'
+	+'</p>'
+	+'</fieldset>'
+	+'</form>'
+	+'</div>'
+	+'</div>'
+	+'</div>'
+	+'</div>'
+	+'</div>';
 var ADMIN_COUPON = '<div id= "admin_coupon" class="box">'
 	+'<div id="container">'
 	+'<div id="content">'
@@ -427,161 +415,6 @@ var ADMIN_COUPON = '<div id= "admin_coupon" class="box">'
 	+'</div>'
 	+'</div>';
 
-var ADMIN_NOTICE_WRITE = '<div id= "admin_notice" class="notice1 box">'
-	+'<div id="container">'
-	+'<div id="content">'
-	+'<div class="admin_lnb">'
-	+'<ul class="admin_lnb">'
-	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
-	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
-	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
-	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
-	+'</ul>'
-	+'<div class="section1">'
-	+'<h3><img src="'+app.img()+'/h3_notice.gif" alt="공지사항"></h3>'
-	+'<form id="admin_notice_write_form" accept-charset="utf-8" enctype="multipart/form-data">'
-	+'<fieldset>'
-	+'<input type="hidden" name="auth_token" value="fc11e5a1541403123da91ff8596dd4253c2b72bcdkhne">'
-	+'<input type="hidden" name="return_url" value="http://www.socar.kr/inquiry">'
-	+'<input type="hidden" name="channel" value="www">'
-	+'<table cellspacing="0" class="rows">'
-	+'<tbody>'
-	+'<tr>'
-	+'<th><img src="'+app.img()+'/inquiry_txt3.gif" alt="제목 / 내용"></th>'
-	+'<td>'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:90%; margin-bottom: 20px">'
-	+'<textarea id="contents" cols="" name="contents" rows="15" class="textarea" style="width:90%"></textarea>'
-	+'</td>'
-	+'</tr>'
-	+'</tbody></table>'
-	+'<p class="centerBtn">'
-	+'<input id="btn_notice_write_submit" type="submit" value="" class="btn_submit">'
-	+'</p>'
-	+'</fieldset>'
-	+'</form>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>';
-var ADMIN_ANSWER = '<div id="admin_answer" class="box">'
-	+'<div id="container">'
-	+'<div id="content">'
-	+'<div class="admin_lnb">'
-	+'<ul class="admin_lnb">'
-	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
-	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
-	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
-	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
-	+'</ul>'
-	+'<div class="section1">'
-	+'<h3><img src="'+app.img()+'/qna.jpg" alt="묻의&답변"></h3>'
-	+'<form id="admin_answer_form" accept-charset="utf-8" enctype="multipart/form-data">'
-	+'<fieldset>'
-	+'<table cellspacing="0" class="rows">'
-	+'<tbody><tr>'
-	+'<th><img src="'+app.img()+'/inquiry_txt2.gif" alt="문의분류"></th>'
-	+'<td style="width:165px" name="category" id="category">'
-	+'예약/결제문의'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th><img src="'+app.img()+'/inquiry_txt3.gif" alt="제목 / 내용"></th>'
-	+'<td id="title" name="title" class="input" style="width:400px">'
-	+'바로반납으로 받은 혜택의 유효기간은 언제까지 인가요?'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td>'
-	+'</td>'
-	+'<td>'
-	+'바로반납 혜택은 대여시간 30분 초과, 대여 종료시간 10분 이전 건에 대하여 적용됩니다.바로반납 크레딧에 대한 자세한 내용은 아래 공지사항을 참고해주세요.☞ 바로반납 크레딧 안내 자세히 보기 (PC)'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th><img src="'+app.img()+'/answer_title.jpg" alt="답변"></th>'
-	+'<td>'
-	+'<textarea id="contents" cols="" name="contents" rows="15" class="textarea" style="width:750px"></textarea>'
-	+'</td>'
-	+'</tr>'
-	+'</tbody></table>'
-	+'<p class="centerBtn">'
-	+'<input id="btn_answer_submit" type="submit" value="" class="btn_submit">'
-	+'</p>'
-	+'</fieldset>'
-	+'</form>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>';
-var ADMIN_CAR_UPDATE = '<div id= "admin_car" class="box">'
-	+'<div id="container">'
-	+'<div id="content">'
-	+'<div class="admin_lnb">'
-	+'<ul class="admin_lnb">'
-	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
-	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
-	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
-	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
-	+'</ul>'
-	+'<div class="section1">'
-	+'<h3><img src="'+app.img()+'/car_mag.jpg" alt="차량관리"></h3>'
-	+'<form id="admin_car_update" method="post" action="${context}/admin/inquiry" accept-charset="utf-8" enctype="multipart/form-data">'
-	+'<fieldset>'
-	+'<input type="hidden" name="auth_token" value="fc11e5a1541403123da91ff8596dd4253c2b72bcdkhne">'
-	+'<input type="hidden" name="return_url" value="">'
-	+'<input type="hidden" name="channel" value="www">'
-	+'<table cellspacing="0" class="rows">'
-	+'<tbody>'
-	+'<tr>'
-	+'<td>차량번호</td>'
-	+'<td>11가1234</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>쏘카존</th>'
-	+'<td>'
-	+'<input id="title" type="text" name="title" class="input" value="증산시장 앞" style="width:200px">'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>차량</th>'
-	+'<td><img src="http://socdnw.speedgabia.com/template/asset/images/car_image/car15.png" id="car_thumb">엑센트  크레센도</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>유종</th>'
-	+'<td>휘발유</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>옵션</th>'
-	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="오토변속기어, 내비게이션, 블랙박스" style="width:400px">'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>대여요금</th>'
-	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="2,620원" style="width:100px">'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>주행요금</th>'
-	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="170원/km" style="width:100px">'
-	+'</td>'
-	+'</tr>'
-	+'</tbody>'
-	+'</table>'
-	+'<p class="centerBtn">'
-	+'<input id="btn_admin_car_update" type="submit" value="" class="btn_submit">'
-	+'</p>'
-	+'</fieldset>'
-	+'</form>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>';
 var ADMIN_CAR_REGIST = '<div id= "admin_car" class="box">'
 	+'<div id="container">'
 	+'<div id="content">'
@@ -811,25 +644,23 @@ var admin = (function(){
 	};
 	var onCreate = function(){
 		setContentView();
-		$('#btn_admin_mode').click(function(){admin.admin_notice_form('notice_list',1);}); 
+		$('#btn_admin_mode').click(function(){admin.admin_notice_form(1);}); 
 		$('#admin_article').on('click','#a_admin_notice',function(){
-			admin.admin_notice_form('notice_list',1);
-		});
-		$('#admin_article').on('click','#a_admin_inquiry_list',function(){
-			admin.admin_inquiry_form();
-		});
-		$('#admin_article').on('click','#a_admin_car_list',function(){
-			admin.admin_car_form();
-		});
-		$('#admin_article').on('click','#a_admin_coupon_list',function(){
-			admin.admin_coupon_form();
+			admin.admin_notice_form(1);
 		});
 		$('#admin_article').on('click','#a_admin_notice_write',function(){
 			admin.admin_notice_write();
 		});
-		$('#admin_article').on('click','#a_admin_answer',function(){
-			admin.admin_inquiry_answer();
-		});	
+		$('#admin_article').on('click','#a_admin_inquiry_list',function(){
+			admin.admin_inquiry_form(1);
+		});
+		$('#admin_article').on('click','#a_admin_car_list',function(){
+			admin.admin_car_form(1);
+		});
+		$('#admin_article').on('click','#a_admin_coupon_list',function(){
+			admin.admin_coupon_form();
+		});
+		
 		$('#admin_article').on('click','#a_admin_car_update',function(){
 			admin.car_update_form();
 		});
@@ -842,21 +673,15 @@ var admin = (function(){
 		$('#admin_article').on('click','#a_admin_coupon_regist',function(){
 			admin.admin_coupon_regist_form();
 		});
-	};
+	};	
 	return{
 		init : init,
-		admin_notice_form : function(keyField,keyword){
+		numberWithCommas: function (x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		admin_notice_form : function(pgNum){
 			$('#admin_article').empty();
-			var url='';
-			if(keyField==='notice_list'){
-				url=app.context()+'/admin/notice_list/'+keyword;
-				pgNum = keyword;
-
-			}else{
-				url=app.context()+'/admin/notice_search/'+keyField+'/'+keyword;
-				pgNum = 1;
-			}			
-			$.getJSON(url,function(data){
+			$.getJSON(app.context()+'/admin/notice_list/'+pgNum,function(data){
 				var frame = '';
 				var notice_list = '';
 				var pagination ='';
@@ -866,15 +691,8 @@ var admin = (function(){
 				var totPg = data.totPg;
 				var groupSize = data.groupSize;
 				var totCount = data.totCount;
-				console.log('스타트페이지 : '+startPg);
-				console.log('라스트페이지 : '+lastPg);
-				console.log('페이지사이즈 : '+pgSize);
-				console.log('총페이지 : '+totPg);
-				console.log('그룹사이즈 : '+groupSize);
-				console.log('페이지번호 : '+pgNum);
 				notice_list = ADMIN_NOTICE;
 				notice_list += ADMIN_NOTICE_TH;	
-				
 				if (data.totCount===0) {
 					notice_list +='<tr><td colspan=7>등록된 공지사항이 없습니다.</td></tr>';
 				} else {					
@@ -882,8 +700,7 @@ var admin = (function(){
 						notice_list +=
 							'<tr>'
 							+'<td>'+notice.seq+'</td>'
-							+'<td class="subj"><a href="#" onclick="admin.admin_notice_content(\''
-							+notice.title+'\',\''+notice.regDate+'\')" id= "a_admin_notice_content">'+notice.title+'</a></td>'
+							+'<td class="subj"><a href="#" onclick="admin.admin_notice_content('+notice.customerSeq+')" id= "a_admin_notice_content">'+notice.title+'</a></td>'
 							+'<td>'+notice.regDate+'</td>'
 							+'<td style="visibility:hidden">'+notice.customerSeq+'</td>'
 							+'</tr>';
@@ -891,37 +708,36 @@ var admin = (function(){
 				}
 				notice_list += '</tbody></table>'
 				pagination = '<div id="admin_paginate" class="paginate">';
-				if(pgNum > startPg  ){
+				if(pgNum > 1  ){
 					pagination += 
-                        '&nbsp;<a href="#" onclick="admin.admin_notice_form(\'notice_list\','+(pgNum - 1)+')" aria-label="Previous">'
-                       +'<span aria-hidden="true">&laquo;</span>'
-                       +'</a>'
-                       ;
+						'&nbsp;<a href="#" onclick="admin.admin_notice_form('+(pgNum - 1)+')" aria-label="Previous">'
+						+'<span aria-hidden="true">&laquo;</span>'
+						+'</a>'
+						;
                  }
-                 for(var i=startPg; i<=totPg; i++){
+                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
                     if(i==pgNum){
                        pagination +='&nbsp;<strong>'+i+'</strong>';
                     }else{
-                       pagination += '&nbsp;<a href="#" onclick="admin.admin_notice_form(\'notice_list\','+i+')">'+i+'</a>';
+                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_notice_form('+i+')">'+i+'</a>';
                     }
                  }
-                 if(pgNum < lastPg){
-                    pagination += 
-                       '&nbsp;<a href="#" onclick="admin.admin_notice_form(\'notice_list\','+(pgNum + 1)+')" aria-label="Next">'
-                       + '<span aria-hidden="true">&raquo;</span>'
-                       +'</a>'
-                      ;
+                 if(pgNum < totPg){
+                	 pagination += 
+                            '&nbsp;<a href="#" onclick="admin.admin_notice_form('+(pgNum + 1)+')" aria-label="Next">'
+                            + '<span aria-hidden="true">&raquo;</span>'
+                            +'</a>'
+                           ;
                  }
                 pagination += '</div>'
-                notice_list += pagination;	
-                
+                notice_list += pagination;	                
 				notice_list += ADMIN_NOTICE_END;
 				frame = notice_list;
 				$('#admin_article').html(frame);
 				
 				$('#btn_notice_search').click(function(){
 					if($('#keyword').val().length>0){
-						admin.admin_find_notice('title',$('#keyword').val());
+						admin.admin_find_notice('title',$('#keyword').val(),1);
 					}else{
 						alert('검색어를 입력해 주세요');
 						$('#keyword').focus();
@@ -930,62 +746,432 @@ var admin = (function(){
 				});
 			});
 		},
-		admin_notice_content : function(title,regdate){
+		admin_notice_content : function(customerSeq){
 			$('#admin_article').empty();
 			var frame = '';
 			var notice_content = '';
 			notice_content = ADMIN_NOTICE_CONTENT;
 			notice_content += ADMIN_NOTICE_CONTENT_TH;
-			notice_content += '<tr>'
-				+'<td class="subj">'+title+'</td>'
-				+'<td>'+regdate+'</td>'
-				+'</tr>'
-				+'</tbody>'
-				+'</table>'
-				+'<div class="viewCont">'
-				+'공지내용 들어갈것'
-				+'<p class="centerBtn"><a id="a_admin_notice"><img src="http://socdnw.speedgabia.com/template/asset/images/common/btn_list.gif" alt="목록보기"></a></p>'
-				+'</div>'
-				+'</div>'
-				;
+			notice_content += ADMIN_NOTICE_CONTENT_ROW;
 			notice_content += ADMIN_NOTICE_END;
 			frame = notice_content;
-			$('#admin_article').html(frame);	
+			$('#admin_article').html(frame);
+			$.getJSON(app.context()+'/admin/noticeContent/customerSeq/'+customerSeq,function(data){
+			$('#notice_content #content_title').text(data.title);
+			$('#notice_content #content_regdate').text(data.regDate);
+			$('#admin_notice_content').text(data.content);
+			});
 		},
-		admin_find_notice : function(keyField,keyword){
-			admin.admin_notice_form(keyField,keyword);
+		admin_find_notice : function(keyField,keyword,pgNum){
+			$('#admin_article').empty();
+			$.getJSON(app.context()+'/admin/notice_search/'+keyField+'/'+keyword+'/'+pgNum,function(data){
+				var frame = '';
+				var notice_list = '';
+				var pagination ='';
+				var startPg = data.startPg;
+				var lastPg = data.lastPg;
+				var pgSize = data.pgSize;
+				var totPg = data.totPg;
+				var groupSize = data.groupSize;
+				var totCount = data.totCount;
+				notice_list = ADMIN_NOTICE_FIND;
+				notice_list += ADMIN_NOTICE_TH;	
+				
+				if (data.totCount===0) {
+					notice_list +='<tr><td colspan=7>등록된 검색 공지사항이 없습니다.</td></tr>';
+				} else {					
+					$.each(data.list, function(i,notice){
+						notice_list +=
+							'<tr>'
+							+'<td>'+notice.seq+'</td>'
+							+'<td class="subj"><a href="#" onclick="admin.admin_notice_content('+notice.customerSeq+')" id= "a_admin_notice_content">'+notice.title+'</a></td>'
+							+'<td>'+notice.regDate+'</td>'
+							+'<td style="visibility:hidden">'+notice.customerSeq+'</td>'
+							+'</tr>';
+					});
+				}
+				notice_list += '</tbody></table>'
+				pagination = '<div id="admin_paginate" class="paginate">';
+				if(pgNum > 1  ){
+					pagination += 
+						'&nbsp;<a href="#" onclick="admin.admin_find_notice(\'title\','+keyword+','+(pgNum - 1)+')" aria-label="Previous">'
+						+'<span aria-hidden="true">&laquo;</span>'
+						+'</a>'
+						;
+                 }
+                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+                    if(i==pgNum){
+                       pagination +='&nbsp;<strong>'+i+'</strong>';
+                    }else{
+                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_notice(\'title\','+keyword+','+i+')">'+i+'</a>';
+                    }
+                 }
+                 if(pgNum < totPg){
+                	 pagination += 
+                            '&nbsp;<a href="#" onclick="admin.admin_find_notice(\'title\','+keyword+','+(pgNum + 1)+')" aria-label="Next">'
+                            + '<span aria-hidden="true">&raquo;</span>'
+                            +'</a>'
+                           ;
+                 }
+                pagination += '</div>'
+                notice_list += pagination;	                
+				notice_list += ADMIN_NOTICE_END;
+				frame = notice_list;
+				$('#admin_article').html(frame);
+			});
 		},
-		admin_inquiry_form : function(){
-			$('#admin_article').empty().html(ADMIN_INQUIRY);	
-		},
-		admin_car_form : function(){
-			$('#admin_article').empty().html(ADMIN_CAR);	
-		},
-		admin_coupon_form : function(){
-			$('#admin_article').empty().html(ADMIN_COUPON);	
-		},		
 		admin_notice_write : function(){
 			$('#admin_article').empty().html(ADMIN_NOTICE_WRITE);
 			admin.init();
 			$('#btn_notice_write_submit').click(function(e){
 			    e.preventDefault();
-				$('#admin_article').html(ADMIN_NOTICE);				
+			    var join_info = {
+						'title' : $('#adm_notice_title').val(),
+						'content' : $('#adm_notice_contents').val()
+					};
+			    $.ajax({
+					url : app.context()+'/admin/notice_write',
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(join_info),
+					dataType : 'json',
+					success : function(data){
+						if(data.message==='success'){
+							admin.admin_notice_form(1);
+						}else{
+							alert('공지사항 입력시 알 수 없는 에러가  발생했습니다.');
+						}
+					},
+					error : function(x,s,m){
+						alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+					}
+					
+				});				
 			}); 
 		},
-		admin_inquiry_answer : function(){
+		admin_inquiry_form : function(pgNum){
+			$('#admin_article').empty();
+			$.getJSON(app.context()+'/admin/customer_list/'+pgNum,function(data){
+				var frame = '';
+				var inquiry_list = '';
+				var pagination ='';
+				var startPg = data.startPg;
+				var lastPg = data.lastPg;
+				var pgSize = data.pgSize;
+				var totPg = data.totPg;
+				var groupSize = data.groupSize;
+				var totCount = data.totCount;
+				inquiry_list = ADMIN_INQUIRY;
+				inquiry_list += ADMIN_INQUIRY_TH;				
+				if (data.totCount===0) {
+					inquiry_list +='<tr><td colspan=7>등록된 문의가 없습니다.</td></tr>';
+				} else {					
+					$.each(data.list, function(i,inquiry){
+						inquiry_list +=
+							'<tr>'
+							+'<td>'+inquiry.seq+'</td>'
+							+'<td>'+inquiry.category+'</td>';
+							if(inquiry.answer===null ){
+								inquiry_list += '<td class="subj"><a href="#" onclick="admin.admin_inquiry_answer('+inquiry.customerSeq+')" id= "a_admin_answer">'+inquiry.title+'</a><img src="'+app.img()+'/ico-new.gif"></td>';
+							}else{
+								inquiry_list += '<td class="subj"><a href="#" onclick="admin.admin_inquiry_answer('+inquiry.customerSeq+')" id= "a_admin_answer">'+inquiry.title+'</a></td>';
+							}
+							inquiry_list +='<td>'+inquiry.id+'</td>'
+							+'<td>'+inquiry.regDate+'</td>'
+							+'<td style="visibility:hidden">'+inquiry.customerSeq+'</td>'
+							+'</tr>';
+					});
+				}
+				inquiry_list += '</tbody></table>'
+				pagination = '<div id="admin_paginate" class="paginate">';
+				if(pgNum > 1  ){
+					pagination += 
+						'&nbsp;<a href="#" onclick="admin.admin_inquiry_form('+(pgNum - 1)+')" aria-label="Previous">'
+						+'<span aria-hidden="true">&laquo;</span>'
+						+'</a>'
+						;
+                 }
+                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+                    if(i==pgNum){
+                       pagination +='&nbsp;<strong>'+i+'</strong>';
+                    }else{
+                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_inquiry_form('+i+')">'+i+'</a>';
+                    }
+                 }
+                 if(pgNum < totPg){
+                	 pagination += 
+                            '&nbsp;<a href="#" onclick="admin.admin_inquiry_form('+(pgNum + 1)+')" aria-label="Next">'
+                            + '<span aria-hidden="true">&raquo;</span>'
+                            +'</a>'
+                           ;
+                 }
+                pagination += '</div>'
+                inquiry_list += pagination;	                
+                inquiry_list += ADMIN_NOTICE_END;
+				frame = inquiry_list;
+				$('#admin_article').html(frame);
+				
+				$('#btn_inquiry_search').click(function(){
+					if($('#inquiry_keyword').val().length>0){
+						admin.admin_find_inquiry('title',$('#inquiry_keyword').val(),1);
+					}else{
+						alert('검색어를 입력해 주세요');
+						$('#inquiry_keyword').focus();
+						return false
+					}
+				});
+			});
+		},
+		admin_find_inquiry : function(keyField,keyword,pgNum){
+			$('#admin_article').empty();
+			$.getJSON(app.context()+'/admin/customer_search/'+keyField+'/'+keyword+'/'+pgNum,function(data){
+				var frame = '';
+				var inquiry_list = '';
+				var pagination ='';
+				var startPg = data.startPg;
+				var lastPg = data.lastPg;
+				var pgSize = data.pgSize;
+				var totPg = data.totPg;
+				var groupSize = data.groupSize;
+				var totCount = data.totCount;
+				inquiry_list = ADMIN_INQUIRY_FIND;
+				inquiry_list += ADMIN_INQUIRY_TH;	
+				
+				if (data.totCount===0) {
+					inquiry_list +='<tr><td colspan=7>등록된 검색 문의가 없습니다.</td></tr>';
+				} else {					
+					$.each(data.list, function(i,inquiry){
+						inquiry_list +=
+							'<tr>'
+							+'<td>'+inquiry.seq+'</td>'
+							+'<td>'+inquiry.category+'</td>'
+							+'<td class="subj"><a href="#" onclick="admin.admin_inquiry_answer('+inquiry.customerSeq+')" id= "a_admin_answer">'+inquiry.title+'</a></td>'
+							+'<td>'+inquiry.id+'</td>'
+							+'<td>'+inquiry.regDate+'</td>'
+							+'<td style="visibility:hidden">'+inquiry.customerSeq+'</td>'
+							+'</tr>';
+					});
+				}
+				inquiry_list += '</tbody></table>'
+				pagination = '<div id="admin_paginate" class="paginate">';
+				if(pgNum > 1  ){
+					pagination += 
+						'&nbsp;<a href="#" onclick="admin.admin_find_inquiry(\'title\','+keyword+','+(pgNum - 1)+')" aria-label="Previous">'
+						+'<span aria-hidden="true">&laquo;</span>'
+						+'</a>'
+						;
+                 }
+                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+                    if(i==pgNum){
+                       pagination +='&nbsp;<strong>'+i+'</strong>';
+                    }else{
+                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_inquiry(\'title\','+keyword+','+i+')">'+i+'</a>';
+                    }
+                 }
+                 if(pgNum < totPg){
+                	 pagination += 
+                            '&nbsp;<a href="#" onclick="admin.admin_find_inquiry(\'title\','+keyword+','+(pgNum + 1)+')" aria-label="Next">'
+                            + '<span aria-hidden="true">&raquo;</span>'
+                            +'</a>'
+                           ;
+                 }
+                pagination += '</div>'
+                inquiry_list += pagination;	                
+                inquiry_list += ADMIN_NOTICE_END;
+				frame = inquiry_list;
+				$('#admin_article').html(frame);
+			});
+		},
+		admin_inquiry_answer : function(customerSeq){
 			$('#admin_article').empty().html(ADMIN_ANSWER);	
+			admin.init();
+			$.getJSON(app.context()+'/admin/customerAnswer/customerSeq/'+customerSeq,function(data){
+				$('#customer_category').text(data.category);
+				$('#customer_title').text(data.title);
+				$('#customer_content').text(data.content);
+				$('#customer_answer').text(data.answer);
+			});
 			$('#btn_answer_submit').click(function(e){
 				e.preventDefault();
-				$('#admin_article').html(ADMIN_INQUIRY);
+				var join_info = {
+						'answer' : $('#customer_answer').val(),
+						'customerSeq' : customerSeq
+					};
+			    $.ajax({
+					url : app.context()+'/admin/customer_answer',
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(join_info),
+					dataType : 'json',
+					success : function(data){
+						if(data.message==='success'){
+							admin.admin_inquiry_form(1);
+						}else{
+							alert('답변 업데이트시 알 수 없는 에러가  발생했습니다.');
+						}
+					},
+					error : function(x,s,m){
+						alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+					}
+					
+				});
 			}); 
 		},
-		car_update_form : function(){
+		admin_car_form : function(pgNum){
+			$('#admin_article').empty();
+			$.getJSON(app.context()+'/admin/car_list/'+pgNum,function(data){
+				var frame = '';
+				var car_list = '';
+				var pagination ='';
+				var startPg = data.startPg;
+				var lastPg = data.lastPg;
+				var pgSize = data.pgSize;
+				var totPg = data.totPg;
+				var groupSize = data.groupSize;
+				var totCount = data.totCount;
+				car_list = ADMIN_CAR;
+				car_list += ADMIN_CAR_TH;					
+				if (data.totCount===0) {
+					car_list +='<tr><td colspan=7>등록된 차량이 없습니다.</td></tr>';
+				} else {					
+					$.each(data.list, function(i,car){
+						car_list +=
+							'<tr>'
+							+'<td class="subj"> <a href="#" onclick="admin.car_update_form('+car.seq+')" id= "a_admin_notice_content">'+car.carNum+'</a></td>'
+							+'<td>'+car.socarZone+'</td>'
+							+'<td><img src="'+app.img()+'/car_image/'+car.carImg+'" id="car_thumb"><p>'+car.carType+'</p></td>'
+							+'<td>'+car.oilType+'</td>'
+							+'<td>'+car.carOption+'</td>'
+							+'<td>'+admin.numberWithCommas(car.rentAmt)+'원</td>'
+							+'<td>'+admin.numberWithCommas(car.driveAmt)+'원/km</td>'
+							+'<td style="visibility:hidden">'+car.seq+'</td>'
+							+'</tr>';
+					});
+				}
+				car_list += '</tbody></table>'
+				pagination = '<div id="admin_paginate" class="paginate">';
+				if(pgNum > 1  ){
+					pagination += 
+						'&nbsp;<a href="#" onclick="admin.admin_car_form('+(pgNum - 1)+')" aria-label="Previous">'
+						+'<span aria-hidden="true">&laquo;</span>'
+						+'</a>'
+						;
+                 }
+                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+                    if(i==pgNum){
+                       pagination +='&nbsp;<strong>'+i+'</strong>';
+                    }else{
+                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_car_form('+i+')">'+i+'</a>';
+                    }
+                 }
+                 if(pgNum < totPg){
+                	 pagination += 
+                            '&nbsp;<a href="#" onclick="admin.admin_car_form('+(pgNum + 1)+')" aria-label="Next">'
+                            + '<span aria-hidden="true">&raquo;</span>'
+                            +'</a>'
+                           ;
+                 }
+                pagination += '</div>'
+                car_list += pagination;	                
+                car_list += ADMIN_NOTICE_END;
+				frame = car_list;
+				$('#admin_article').html(frame);
+				
+				$('#btn_car_search').click(function(){
+					if($('#admin_car_keyword').val().length>0){
+						admin.admin_find_car($('#admin_car_keyField').val(),$('#admin_car_keyword').val(),1);
+					}else{
+						alert('검색어를 입력해 주세요');
+						$('#admin_car_keyword').focus();
+						return false
+					}
+				});
+			});	
+		},
+		admin_find_car : function(keyField,keyword,pgNum){
+			$('#admin_article').empty();
+			$.getJSON(app.context()+'/admin/car_search/'+keyField+'/'+keyword+'/'+pgNum,function(data){
+				var frame = '';
+				var car_list = '';
+				var pagination ='';
+				var startPg = data.startPg;
+				var lastPg = data.lastPg;
+				var pgSize = data.pgSize;
+				var totPg = data.totPg;
+				var groupSize = data.groupSize;
+				var totCount = data.totCount;
+				car_list = ADMIN_CAR_FIND;
+				car_list += ADMIN_CAR_TH;	
+				if (data.totCount===0) {
+					car_list +='<tr><td colspan=7>등록된 차량이 없습니다.</td></tr>';
+				} else {					
+					$.each(data.list, function(i,car){
+						car_list +=
+							'<tr>'
+							+'<td class="subj"> <a href="#" onclick="admin.car_update_form('+car.seq+')" id= "a_admin_notice_content">'+car.carNum+'</a></td>'
+							+'<td>'+car.socarZone+'</td>'
+							+'<td><img src="'+app.img()+'/car_image/'+car.carImg+'" id="car_thumb"><p>'+car.carType+'</p></td>'
+							+'<td>'+car.oilType+'</td>'
+							+'<td>'+car.carOption+'</td>'
+							+'<td>'+admin.numberWithCommas(car.rentAmt)+'원</td>'
+							+'<td>'+admin.numberWithCommas(car.driveAmt)+'원/km</td>'
+							+'<td style="visibility:hidden">'+car.seq+'</td>'
+							+'</tr>';
+					});
+				}
+				car_list += '</tbody></table>'
+				pagination = '<div id="admin_paginate" class="paginate">';
+				if(pgNum > 1  ){
+					pagination += 
+						'&nbsp;<a href="#" onclick="admin.admin_find_inquiry('+keyField+','+keyword+','+(pgNum - 1)+')" aria-label="Previous">'
+						+'<span aria-hidden="true">&laquo;</span>'
+						+'</a>'
+						;
+                 }
+                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+                    if(i==pgNum){
+                       pagination +='&nbsp;<strong>'+i+'</strong>';
+                    }else{
+                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_inquiry('+keyField+','+keyword+','+i+')">'+i+'</a>';
+                    }
+                 }
+                 if(pgNum < totPg){
+                	 pagination += 
+                            '&nbsp;<a href="#" onclick="admin.admin_find_inquiry('+keyField+','+keyword+','+(pgNum + 1)+')" aria-label="Next">'
+                            + '<span aria-hidden="true">&raquo;</span>'
+                            +'</a>'
+                           ;
+                 }
+                pagination += '</div>'
+                car_list += pagination;	                
+                car_list += ADMIN_NOTICE_END;
+				frame = car_list;
+				$('#admin_article').html(frame);
+			});
+		},
+		car_update_form : function(seq){
 			$('#admin_article').empty().html(ADMIN_CAR_UPDATE);	
+			admin.init();
+			$.getJSON(app.context()+'/admin/carUpdate/seq/'+seq,function(data){
+				$('#admin_car_num').text(data.carNum);
+				$('#u_admin_socar_zone').html('<input type="text" id="admin_socar_zone" class="input" value="'+data.socarZone+'" style="width:200px"/>');			
+				$('#admin_car_img').attr('src',app.img()+'/car_image/'+data.carImg);
+				$('#admin_img_name').text(data.carImg);
+				$('#u_admin_img_name').html('<input type="text" id="admin_img_name" class="input" value="'+data.carImg+'" style="width:100px"/>');
+				$('#admin_car_type').text(data.carType);				
+				$('#admin_oil_type').text(data.oilType);
+				$('#admin_car_option').text(data.carOption);
+				$('#admin_rent_amt').text(admin.numberWithCommas(data.rentAmt)+' 원');
+				$('#admin_drive_amt').text(admin.numberWithCommas(data.driveAmt)+' 원/km');
+			});
 			$('#btn_admin_car_update').click(function(e){
 				e.preventDefault();
 				$('#admin_article').html(ADMIN_CAR);
 			}); 
 		},
+		admin_coupon_form : function(){
+			$('#admin_article').empty().html(ADMIN_COUPON);	
+		},								
 		car_regist_form : function(){
 			$('#admin_article').empty().html(ADMIN_CAR_REGIST);	
 			$('#brn_admin_car_regist').click(function(e){
@@ -1006,6 +1192,6 @@ var admin = (function(){
 				e.preventDefault();
 				$('#admin_article').html(ADMIN_COUPON);
 			}); 
-		}
+		}		
 	};
 })();

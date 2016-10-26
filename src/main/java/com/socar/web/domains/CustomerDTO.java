@@ -11,6 +11,6 @@ import lombok.Setter;
 @Data
 @Lazy
 public class CustomerDTO {
-	@Getter @Setter private int customerSeq;
+	@Getter @Setter private int customerSeq,seq;
 	@Getter @Setter private String category, title, content, answer, fileName, role, regDate, id;
 }

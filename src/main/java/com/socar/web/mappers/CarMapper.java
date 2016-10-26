@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.socar.web.domains.CarDTO;
 import com.socar.web.domains.Command;
+import com.socar.web.domains.CustomerDTO;
 import com.socar.web.domains.Retval;
 
 @Repository
@@ -16,4 +17,5 @@ public interface CarMapper {
 	public List<CarDTO> list(Command command);
 	public Retval find_count(Command command);
 	public List<?> find(Command command);
+	public CarDTO car_find_by_num(Command command);
 }

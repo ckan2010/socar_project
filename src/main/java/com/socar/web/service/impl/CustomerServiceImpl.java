@@ -33,8 +33,14 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 	@Override
 	public Retval update(CustomerDTO param) {
-		// TODO Auto-generated method stub
-		return null;
+		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+		int result = mapper.update(param);
+		if(result==0){
+			ret.setMessage("fail");
+		}else{
+			ret.setMessage("success");
+		}
+		return ret;
 	}
 	@Override
 	public Retval delete(CustomerDTO param) {
@@ -62,6 +68,11 @@ public class CustomerServiceImpl implements CustomerService{
 		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
 		Retval retval = mapper.find_count(command);
 		return retval;
+	}
+	@Override
+	public CustomerDTO customer_find_by_seq(Command command) {
+		CustomerMapper mapper = sqlSession.getMapper(CustomerMapper.class);
+		return mapper.customer_find_by_seq(command);
 	}
 
 }

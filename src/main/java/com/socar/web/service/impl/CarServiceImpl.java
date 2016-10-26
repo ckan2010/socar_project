@@ -65,5 +65,10 @@ public class CarServiceImpl implements CarService{
 		Retval retval = mapper.find_count(command);
 		return retval;
 	}
+	@Override
+	public CarDTO car_find_by_num(Command command) {
+		CarMapper mapper = sqlSession.getMapper(CarMapper.class);
+		return mapper.car_find_by_num(command);
+	}
 
 }
