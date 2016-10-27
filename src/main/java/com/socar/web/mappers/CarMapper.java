@@ -18,4 +18,6 @@ public interface CarMapper {
 	public Retval find_count(Command command);
 	public List<?> find(Command command);
 	public CarDTO car_find_by_num(Command command);
+	public int update(CarDTO param);
+	public int existId(String carNum);
 }

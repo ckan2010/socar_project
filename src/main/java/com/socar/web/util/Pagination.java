@@ -25,8 +25,8 @@ public class Pagination {
 		int[] pages = new int[3];
 		int startPg=0,lastPg=0,totPg=0;
 		totPg = (totCount % Values.PG_SIZE == 0)?totCount/Values.PG_SIZE:totCount/Values.PG_SIZE + 1;
-		startPg = pgNum-((pgNum-1)%Values.PG_SIZE);		
-		lastPg = (startPg + Values.PG_SIZE-1 <= totPg)?startPg + Values.PG_SIZE -1:totPg;
+		startPg = pgNum-((pgNum-1)%Values.GROUP_SIZE);		
+		lastPg = (startPg + Values.GROUP_SIZE-1 <= totPg)?startPg + Values.GROUP_SIZE -1:totPg;
 		pages[0] = startPg;
 		pages[1] = lastPg;
 		pages[2] = totPg;

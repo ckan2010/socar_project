@@ -1102,6 +1102,7 @@ rental
 #socar h4 span{background-position:54px 14px;}
 #socar .list{margin:0; height:152px; overflow-y:auto;}
 #socar li{border-top:1px solid #eee;}
+#admin_car_img{width: 85px;height: 85px; float: left;}
 
 /* socar */
 #oneway_list {top:214px; width:242px;}

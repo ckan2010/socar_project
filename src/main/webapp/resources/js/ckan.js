@@ -298,36 +298,118 @@ var ADMIN_CAR_UPDATE = '<div id= "admin_car" class="box">'
 	+'</tr>'
 	+'<tr>'
 	+'<th>차량</th>'
-	+'<td><img id="admin_car_img" src="" style="width: 100px;height: 100px; float: left;"></td>'
-	+'<td id="u_admin_img_name"></td>'
+	+'<td><img id="admin_car_img" src=""></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th></th>'
+	+'<td id="u_admin_car_img_name"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th></th>'
 	+'<td id="admin_car_type"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>유종</th>'
-	+'<td id="u_admin_oil_type"></td>'
+	+'<td id="admin_oil_type"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>옵션</th>'
-	+'<td>'
-	+'<input id="admin_car_option" type="text" name="option" class="input" value="" style="width:400px">'
+	+'<td id="u_admin_car_option">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>대여요금</th>'
-	+'<td>'
-	+'<input id="admin_rent_amt" type="text" name="option" class="input" value="" style="width:100px">'
+	+'<td id="u_admin_rent_amt">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>주행요금</th>'
-	+'<td>'
-	+'<input id="admin_drive_amt" type="text" name="option" class="input" value="" style="width:100px">'
+	+'<td id="u_admin_drive_amt">'
 	+'</td>'
 	+'</tr>'
 	+'</tbody>'
 	+'</table>'
 	+'<p class="centerBtn">'
 	+'<input id="btn_admin_car_update" type="submit" value="" class="btn_submit">'
+	+'</p>'
+	+'</fieldset>'
+	+'</form>'
+	+'</div>'
+	+'</div>'
+	+'</div>'
+	+'</div>'
+	+'</div>';
+var ADMIN_CAR_REGIST = '<div id= "admin_car" class="box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'
+	+'<div class="section1">'
+	+'<h3><img src="'+app.img()+'/car_mag.jpg" alt="차량관리"></h3>'
+	+'<form id="admin_car_regist" accept-charset="utf-8" enctype="multipart/form-data">'
+	+'<fieldset>'
+	+'<table cellspacing="0" class="rows">'
+	+'<tbody>'
+	+'<tr>'
+	+'<th>차량번호</th>'
+	+'<td><div id="admin_reg_car_num_td"><input id="admin_reg_car_num" type="text" name="title" class="input" value="" style="width:100px"></div></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th></th>'
+	+'<td><div id="car_num_chk_dup_td"><input id="car_num_chk_dup" type="button" value="중복체크" style="width:100px;height:30px;"></div></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>쏘카존</th>'
+	+'<td>'
+	+'<input id="admin_reg_socar_zone" type="text" name="title" class="input" value="" style="width:200px">'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>차량</th>'
+	+'<td><img src="'+app.img()+'/car_image/" id="admin_reg_car_img">'
+	+'<input id="admin_reg_car_type" type="text" name="title" class="input" value="" style="width:200px">'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>유종</th>'
+	+'<td>'
+	+'<input id="admin_reg_car_oil_type" type="text" name="title" class="input" value="" style="width:60px">'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>옵션</th>'
+	+'<td>'
+	+'<input id="admin_reg_car_option" type="text" name="option" class="input" value="" style="width:400px">'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>대여요금</th>'
+	+'<td>'
+	+'<input id="admin_reg_rent_amt" type="text" name="option" class="input" value="" style="width:100px"> 원'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>주행요금</th>'
+	+'<td>'
+	+'<input id="admin_reg_drive_amt" type="text" name="option" class="input" value="" style="width:100px"> 원/Km'
+	+'</td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th>차량이미지</th>'
+	+'<td>'
+	+'<input id="admin_reg_img_name" type="file" class="inquiry_input" name="userfile" value="">'
+	+'<span class="tip ml10">이미지 파일은 jpg, png, gif 만 첨부가능합니다.</span>'
+	+'</td>'
+	+'</tr>'
+	+'</tbody>'
+	+'</table>'
+	+'<p class="centerBtn">'
+	+'<input id="btn_admin_car_regist" type="submit" value="" class="btn_submit">'
 	+'</p>'
 	+'</fieldset>'
 	+'</form>'
@@ -415,84 +497,7 @@ var ADMIN_COUPON = '<div id= "admin_coupon" class="box">'
 	+'</div>'
 	+'</div>';
 
-var ADMIN_CAR_REGIST = '<div id= "admin_car" class="box">'
-	+'<div id="container">'
-	+'<div id="content">'
-	+'<div class="admin_lnb">'
-	+'<ul class="admin_lnb">'
-	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
-	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
-	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
-	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
-	+'</ul>'
-	+'<div class="section1">'
-	+'<h3><img src="'+app.img()+'/car_mag.jpg" alt="차량관리"></h3>'
-	+'<form id="admin_car_regist" accept-charset="utf-8" enctype="multipart/form-data">'
-	+'<fieldset>'
-	+'<input type="hidden" name="auth_token" value="fc11e5a1541403123da91ff8596dd4253c2b72bcdkhne">'
-	+'<input type="hidden" name="return_url" value="">'
-	+'<input type="hidden" name="channel" value="www">'
-	+'<table cellspacing="0" class="rows">'
-	+'<tbody>'
-	+'<tr>'
-	+'<th>차량번호</th>'
-	+'<td><input id="title" type="text" name="title" class="input" value="" style="width:100px"></td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>쏘카존</th>'
-	+'<td>'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:200px">'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>차량</th>'
-	+'<td><img src="'+app.img()+'/car_image/" id="car_thumb">'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:200px">'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>유종</th>'
-	+'<td>'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:60px">'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>옵션</th>'
-	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="" style="width:400px">'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>대여요금</th>'
-	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="" style="width:100px">원'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>주행요금</th>'
-	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="" style="width:100px">/Km'
-	+'</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<th>차량이미지</th>'
-	+'<td>'
-	+'<input type="file" class="inquiry_input" name="userfile" value="">'
-	+'<span class="tip ml10">이미지 파일은 jpg, png, gif 만 첨부가능합니다.</span>'
-	+'</td>'
-	+'</tr>'
-	+'</tbody>'
-	+'</table>'
-	+'<p class="centerBtn">'
-	+'<input id="brn_admin_car_regist" type="submit" value="" class="btn_submit">'
-	+'</p>'
-	+'</fieldset>'
-	+'</form>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>';
+
 var ADMIN_COUPON_DETAIL = '<div id= "admin_coupon" class="box">'
 	+'<div id="container">'
 	+'<div id="content">'
@@ -657,16 +662,12 @@ var admin = (function(){
 		$('#admin_article').on('click','#a_admin_car_list',function(){
 			admin.admin_car_form(1);
 		});
-		$('#admin_article').on('click','#a_admin_coupon_list',function(){
-			admin.admin_coupon_form();
-		});
-		
-		$('#admin_article').on('click','#a_admin_car_update',function(){
-			admin.car_update_form();
-		});
 		$('#admin_article').on('click','#a_admin_car_regist',function(){
 			admin.car_regist_form();
 		});
+		$('#admin_article').on('click','#a_admin_coupon_list',function(){
+			admin.admin_coupon_form();
+		});		
 		$('#admin_article').on('click','#a_admin_coupon_detail',function(){
 			admin.admin_coupon_detail_form();
 		});
@@ -707,30 +708,55 @@ var admin = (function(){
 					});
 				}
 				notice_list += '</tbody></table>'
-				pagination = '<div id="admin_paginate" class="paginate">';
-				if(pgNum > 1  ){
-					pagination += 
-						'&nbsp;<a href="#" onclick="admin.admin_notice_form('+(pgNum - 1)+')" aria-label="Previous">'
-						+'<span aria-hidden="true">&laquo;</span>'
-						+'</a>'
-						;
-                 }
-                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
-                    if(i==pgNum){
-                       pagination +='&nbsp;<strong>'+i+'</strong>';
-                    }else{
-                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_notice_form('+i+')">'+i+'</a>';
-                    }
-                 }
-                 if(pgNum < totPg){
-                	 pagination += 
-                            '&nbsp;<a href="#" onclick="admin.admin_notice_form('+(pgNum + 1)+')" aria-label="Next">'
-                            + '<span aria-hidden="true">&raquo;</span>'
-                            +'</a>'
-                           ;
-                 }
-                pagination += '</div>'
-                notice_list += pagination;	                
+				if (data.totCount===0) {
+					pagination ='';
+				}else{
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+						var temp;
+						if(pgNum % groupSize == 0){
+							temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+						}else{
+							temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+						}
+						var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_notice_form('+temp2+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+							+'</a>'
+							+'<a href="#" onclick="admin.admin_notice_form('+temp+')" aria-label="Previous">'
+							+'<span aria-hidden="true"><</span>'
+							+'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></font>';
+	                    }else{
+	                    	pagination += '<a href="#" onclick="admin.admin_notice_form('+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                	 var temp3;
+	                	 if(pgNum % groupSize == 0){
+	                		 temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                	 }else{
+	                		 temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                	 }
+	                	 var temp4 = totPg;
+	                	 pagination += '<a href="#" onclick="admin.admin_notice_form('+temp3+')" aria-label="Next">'
+	                	        +'<span aria-hidden="true">></span>'
+	                	        +'</a>'
+	                	        +'<a href="#" onclick="admin.admin_notice_form('+temp4+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                notice_list += pagination;
+				}
+					                
 				notice_list += ADMIN_NOTICE_END;
 				frame = notice_list;
 				$('#admin_article').html(frame);
@@ -773,7 +799,7 @@ var admin = (function(){
 				var pgSize = data.pgSize;
 				var totPg = data.totPg;
 				var groupSize = data.groupSize;
-				var totCount = data.totCount;
+				var totCount = data.totCount;				
 				notice_list = ADMIN_NOTICE_FIND;
 				notice_list += ADMIN_NOTICE_TH;	
 				
@@ -791,30 +817,56 @@ var admin = (function(){
 					});
 				}
 				notice_list += '</tbody></table>'
-				pagination = '<div id="admin_paginate" class="paginate">';
-				if(pgNum > 1  ){
-					pagination += 
-						'&nbsp;<a href="#" onclick="admin.admin_find_notice(\'title\','+keyword+','+(pgNum - 1)+')" aria-label="Previous">'
-						+'<span aria-hidden="true">&laquo;</span>'
-						+'</a>'
-						;
-                 }
-                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
-                    if(i==pgNum){
-                       pagination +='&nbsp;<strong>'+i+'</strong>';
-                    }else{
-                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_notice(\'title\','+keyword+','+i+')">'+i+'</a>';
-                    }
-                 }
-                 if(pgNum < totPg){
-                	 pagination += 
-                            '&nbsp;<a href="#" onclick="admin.admin_find_notice(\'title\','+keyword+','+(pgNum + 1)+')" aria-label="Next">'
-                            + '<span aria-hidden="true">&raquo;</span>'
-                            +'</a>'
-                           ;
-                 }
-                pagination += '</div>'
-                notice_list += pagination;	                
+				if (data.totCount===0) {
+					pagination ='';
+				}else{
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+	                    var temp;
+	                    if(pgNum % groupSize == 0){
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                    }else{
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+	                    }
+	                    var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_find_notice(\'title\',\''+keyword+'\','+(temp2)+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+							+'</a>'
+							+'<a href="#" onclick="admin.admin_find_notice(\'title\',\''+keyword+'\','+(temp)+')" aria-label="Previous">'
+	                        +'<span aria-hidden="true"><</span>'
+	                        +'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></font>';
+	                    }else{
+	                    	pagination += '<a href="#" onclick="admin.admin_find_notice(\'title\',\''+keyword+'\','+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                     var temp3;
+	                     if(pgNum % groupSize == 0){
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                     }else{
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                     }
+	                     var temp4 = totPg;
+	
+	                	 pagination += 
+	                            '<a href="#" onclick="admin.admin_find_notice(\'title\',\''+keyword+'\','+(temp3)+')" aria-label="Next">'
+	                            +'<span aria-hidden="true">></span>'
+	                            +'</a>'
+	                            +'<a href="#" onclick="admin.admin_find_notice(\'title\',\''+keyword+'\','+(temp4)+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                notice_list += pagination;	
+				}
 				notice_list += ADMIN_NOTICE_END;
 				frame = notice_list;
 				$('#admin_article').html(frame);
@@ -883,30 +935,55 @@ var admin = (function(){
 					});
 				}
 				inquiry_list += '</tbody></table>'
-				pagination = '<div id="admin_paginate" class="paginate">';
-				if(pgNum > 1  ){
-					pagination += 
-						'&nbsp;<a href="#" onclick="admin.admin_inquiry_form('+(pgNum - 1)+')" aria-label="Previous">'
-						+'<span aria-hidden="true">&laquo;</span>'
-						+'</a>'
-						;
-                 }
-                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
-                    if(i==pgNum){
-                       pagination +='&nbsp;<strong>'+i+'</strong>';
-                    }else{
-                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_inquiry_form('+i+')">'+i+'</a>';
-                    }
-                 }
-                 if(pgNum < totPg){
-                	 pagination += 
-                            '&nbsp;<a href="#" onclick="admin.admin_inquiry_form('+(pgNum + 1)+')" aria-label="Next">'
-                            + '<span aria-hidden="true">&raquo;</span>'
-                            +'</a>'
-                           ;
-                 }
-                pagination += '</div>'
-                inquiry_list += pagination;	                
+				if (data.totCount===0) {
+					pagination ='';
+				}else{
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+	                    var temp;
+	                    if(pgNum % groupSize == 0){
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                    }else{
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+	                    }
+	                    var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_inquiry_form('+(temp2)+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+							+'</a>'
+							+'<a href="#" onclick="admin.admin_inquiry_form('+(temp)+')" aria-label="Previous">'
+							+'<span aria-hidden="true"><</span>'
+	                        +'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></fonr>';
+	                    }else{
+	                    	pagination += '<a href="#" onclick="admin.admin_inquiry_form('+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                     var temp3;
+	                     if(pgNum % groupSize == 0){
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                     }else{
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                     }
+	                     var temp4 = totPg;
+	                	 pagination += 
+	                            '<a href="#" onclick="admin.admin_inquiry_form('+(temp3)+')" aria-label="Next">'
+	                            + '<span aria-hidden="true">></span>'
+	                            +'</a>'
+	                            +'<a href="#" onclick="admin.admin_inquiry_form('+(temp4)+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                inquiry_list += pagination;	
+				}
                 inquiry_list += ADMIN_NOTICE_END;
 				frame = inquiry_list;
 				$('#admin_article').html(frame);
@@ -953,30 +1030,55 @@ var admin = (function(){
 					});
 				}
 				inquiry_list += '</tbody></table>'
-				pagination = '<div id="admin_paginate" class="paginate">';
-				if(pgNum > 1  ){
-					pagination += 
-						'&nbsp;<a href="#" onclick="admin.admin_find_inquiry(\'title\','+keyword+','+(pgNum - 1)+')" aria-label="Previous">'
-						+'<span aria-hidden="true">&laquo;</span>'
-						+'</a>'
-						;
-                 }
-                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
-                    if(i==pgNum){
-                       pagination +='&nbsp;<strong>'+i+'</strong>';
-                    }else{
-                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_inquiry(\'title\','+keyword+','+i+')">'+i+'</a>';
-                    }
-                 }
-                 if(pgNum < totPg){
-                	 pagination += 
-                            '&nbsp;<a href="#" onclick="admin.admin_find_inquiry(\'title\','+keyword+','+(pgNum + 1)+')" aria-label="Next">'
-                            + '<span aria-hidden="true">&raquo;</span>'
-                            +'</a>'
-                           ;
-                 }
-                pagination += '</div>'
-                inquiry_list += pagination;	                
+				if (data.totCount===0) {
+					pagination ='';
+				}else{
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+	                    var temp;
+	                    if(pgNum % groupSize == 0){
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                    }else{
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+	                    }
+	                    var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_find_inquiry(\'title\',\''+keyword+'\','+(temp2)+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+							+'</a>'
+							+'<a href="#" onclick="admin.admin_find_inquiry(\'title\',\''+keyword+'\','+(temp)+')" aria-label="Previous">'
+							+'<span aria-hidden="true"><</span>'
+	                        +'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></font>';
+	                    }else{
+	                    	pagination += '<a href="#" onclick="admin.admin_find_inquiry(\'title\',\''+keyword+'\','+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                     var temp3;
+	                     if(pgNum % groupSize == 0){
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                     }else{
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                     }
+	                     var temp4 = totPg;
+	                	 pagination += 
+	                            '<a href="#" onclick="admin.admin_find_inquiry(\'title\',\''+keyword+'\','+(temp3)+')" aria-label="Next">'
+	                            +'<span aria-hidden="true">></span>'
+	                            +'</a>'
+	                            +'<a href="#" onclick="admin.admin_find_inquiry(\'title\',\''+keyword+'\','+(temp4)+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                inquiry_list += pagination;
+				}
                 inquiry_list += ADMIN_NOTICE_END;
 				frame = inquiry_list;
 				$('#admin_article').html(frame);
@@ -1047,36 +1149,60 @@ var admin = (function(){
 							+'<td style="visibility:hidden">'+car.seq+'</td>'
 							+'</tr>';
 					});
-				}
+				}				
 				car_list += '</tbody></table>'
-				pagination = '<div id="admin_paginate" class="paginate">';
-				if(pgNum > 1  ){
-					pagination += 
-						'&nbsp;<a href="#" onclick="admin.admin_car_form('+(pgNum - 1)+')" aria-label="Previous">'
-						+'<span aria-hidden="true">&laquo;</span>'
-						+'</a>'
-						;
-                 }
-                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
-                    if(i==pgNum){
-                       pagination +='&nbsp;<strong>'+i+'</strong>';
-                    }else{
-                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_car_form('+i+')">'+i+'</a>';
-                    }
-                 }
-                 if(pgNum < totPg){
-                	 pagination += 
-                            '&nbsp;<a href="#" onclick="admin.admin_car_form('+(pgNum + 1)+')" aria-label="Next">'
-                            + '<span aria-hidden="true">&raquo;</span>'
-                            +'</a>'
-                           ;
-                 }
-                pagination += '</div>'
-                car_list += pagination;	                
+				if (data.totCount===0) {
+					pagination = '';
+				} else {
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+	                    var temp;
+	                    if(pgNum % groupSize == 0){
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                    }else{
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+	                    }
+	                    var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_car_form('+(temp2)+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+	                        +'</a>'
+	                        +'<a href="#" onclick="admin.admin_car_form('+(temp)+')" aria-label="Previous">'
+	                        +'<span aria-hidden="true"><</span>'
+	                        +'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></font>';
+	                    }else{
+	                    	pagination += '<a href="#" onclick="admin.admin_car_form('+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                     var temp3;
+	                     if(pgNum % groupSize == 0){
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                     }else{
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                     }
+	                     var temp4 = totPg;
+	                	 pagination += 
+	                            '<a href="#" onclick="admin.admin_car_form('+(temp3)+')" aria-label="Next">'
+	                            +'<span aria-hidden="true">></span>'
+	                            +'</a>'
+	                            +'<a href="#" onclick="admin.admin_car_form('+(temp4)+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                car_list += pagination;	
+				}
                 car_list += ADMIN_NOTICE_END;
 				frame = car_list;
-				$('#admin_article').html(frame);
-				
+				$('#admin_article').html(frame);				
 				$('#btn_car_search').click(function(){
 					if($('#admin_car_keyword').val().length>0){
 						admin.admin_find_car($('#admin_car_keyField').val(),$('#admin_car_keyword').val(),1);
@@ -1120,30 +1246,55 @@ var admin = (function(){
 					});
 				}
 				car_list += '</tbody></table>'
-				pagination = '<div id="admin_paginate" class="paginate">';
-				if(pgNum > 1  ){
-					pagination += 
-						'&nbsp;<a href="#" onclick="admin.admin_find_inquiry('+keyField+','+keyword+','+(pgNum - 1)+')" aria-label="Previous">'
-						+'<span aria-hidden="true">&laquo;</span>'
-						+'</a>'
-						;
-                 }
-                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
-                    if(i==pgNum){
-                       pagination +='&nbsp;<strong>'+i+'</strong>';
-                    }else{
-                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_inquiry('+keyField+','+keyword+','+i+')">'+i+'</a>';
-                    }
-                 }
-                 if(pgNum < totPg){
-                	 pagination += 
-                            '&nbsp;<a href="#" onclick="admin.admin_find_inquiry('+keyField+','+keyword+','+(pgNum + 1)+')" aria-label="Next">'
-                            + '<span aria-hidden="true">&raquo;</span>'
-                            +'</a>'
-                           ;
-                 }
-                pagination += '</div>'
-                car_list += pagination;	                
+				if (data.totCount===0) {
+					pagination ='';
+				} else {
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+	                    var temp;
+	                    if(pgNum % groupSize == 0){
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                    }else{
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+	                    }
+	                    var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_find_inquiry(\''+keyField+'\',\''+keyword+'\','+(temp2)+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+							+'</a>'
+							+'<a href="#" onclick="admin.admin_find_inquiry(\''+keyField+'\',\''+keyword+'\','+(temp)+')" aria-label="Previous">'
+	                        +'<span aria-hidden="true"><</span>'
+	                        +'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></font>';
+	                    }else{
+	                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_inquiry(\''+keyField+'\',\''+keyword+'\','+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                     var temp3;
+	                     if(pgNum % groupSize == 0){
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                     }else{
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                     }
+	                     var temp4 = totPg;
+	                	 pagination += 
+	                            '<a href="#" onclick="admin.admin_find_inquiry(\''+keyField+'\',\''+keyword+'\','+(temp3)+')" aria-label="Next">'
+	                            +'<span aria-hidden="true">></span>'
+	                            +'</a>'
+	                            +'<a href="#" onclick="admin.admin_find_inquiry(\''+keyField+'\',\''+keyword+'\','+(temp4)+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                car_list += pagination;
+				}
                 car_list += ADMIN_NOTICE_END;
 				frame = car_list;
 				$('#admin_article').html(frame);
@@ -1157,28 +1308,142 @@ var admin = (function(){
 				$('#u_admin_socar_zone').html('<input type="text" id="admin_socar_zone" class="input" value="'+data.socarZone+'" style="width:200px"/>');			
 				$('#admin_car_img').attr('src',app.img()+'/car_image/'+data.carImg);
 				$('#admin_img_name').text(data.carImg);
-				$('#u_admin_img_name').html('<input type="text" id="admin_img_name" class="input" value="'+data.carImg+'" style="width:100px"/>');
+				$('#u_admin_car_img_name').html('<input type="text" id="admin_car_img_name" class="input" value="'+data.carImg+'" style="width:100px"/>');
 				$('#admin_car_type').text(data.carType);				
 				$('#admin_oil_type').text(data.oilType);
-				$('#admin_car_option').text(data.carOption);
-				$('#admin_rent_amt').text(admin.numberWithCommas(data.rentAmt)+' 원');
-				$('#admin_drive_amt').text(admin.numberWithCommas(data.driveAmt)+' 원/km');
+				$('#u_admin_car_option').html('<input type="text" id="admin_car_option" class="input" value="'+data.carOption+'" style="width:400px"/>');
+				$('#u_admin_rent_amt').html('<input id="admin_rent_amt" type="text" name="option" class="input" value="'+admin.numberWithCommas(data.rentAmt)+'" style="width:100px"/>  원');
+				$('#u_admin_drive_amt').html('<input id="admin_drive_amt" type="text" name="option" class="input" value="'+admin.numberWithCommas(data.driveAmt)+'" style="width:100px"/> 원/km');
 			});
 			$('#btn_admin_car_update').click(function(e){
 				e.preventDefault();
-				$('#admin_article').html(ADMIN_CAR);
+				var join_info = {
+						'socarZone' : $('#admin_socar_zone').val(),
+						'carImg' : $('#admin_car_img_name').val(),
+						'carOption' : $('#admin_car_option').val(),
+						'rentAmt' : $('#admin_rent_amt').val(),
+						'driveAmt' : $('#admin_drive_amt').val(),
+						'carNum' : $('#admin_car_num').html()
+					};
+			    $.ajax({
+					url : app.context()+'/admin/car_update',
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(join_info),
+					dataType : 'json',
+					success : function(data){
+						if(data.message==='success'){
+							admin.admin_car_form(1);
+						}else{
+							alert('차량 업데이트시 알 수 없는 에러가  발생했습니다.');
+						}
+					},
+					error : function(x,s,m){
+						alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+					}
+					
+				});
 			}); 
+		},
+		car_regist_form : function(){
+			$('#admin_article').empty().html(ADMIN_CAR_REGIST);	
+			admin.init();
+			$('#car_num_chk_dup').click(function(){
+				var car_num_chk_dup_flag = "";
+				$.ajax({
+					url : app.context()+'/admin/car_num_chk_dup/'+$('#admin_reg_car_num').val(),
+					success : function(data){
+						if(data.flag==="TRUE"){
+							$('#admin_reg_car_num_td').html('<input id="admin_reg_car_num" type="text" name="title" class="input" value="" style="width:200px" placeholder="'+data.message+'">');
+							$('#car_num_chk_dup_td').html('<input id="car_num_re_chk" type="button" value="다시조회" style="width:100px;height:30px;">');
+							car_num_chk_dup_flag = data.flag;
+							admin.init();
+						}else{
+							$('#admin_reg_car_num_td').html('<input id="admin_reg_car_num" type="text" name="title" class="input" value="'+data.carNum+'" style="width:200px">');
+							$('#car_num_chk_dup_td').html('<input id="car_num_used" type="button" value="그대로사용" style="width:100px;height:30px;">');							
+							car_num_chk_dup_flag = data.flag;
+							admin.init();
+							$('#btn_admin_car_regist').click(function(e){
+								e.preventDefault();
+								alert('중복체크 값 : '+car_num_chk_dup_flag);
+								alert('차량번호 : '+$('#admin_reg_car_num').val());
+								alert('쏘카존 : '+$('#admin_reg_socar_zone').val());
+								if(car_num_chk_dup_flag==="TRUE"){
+									alert('차량번호 가 중복입니다.');
+									$('#admin_reg_car_num').val('').focus();
+									return;
+								}
+								if($('#admin_reg_car_num').val()===""){
+									alert('차량번호 는 필수 입력 입니다.');
+									$('#admin_reg_car_num').val('').focus();
+									return;
+								}
+								if($('#admin_reg_socar_zone').val()===""){
+									alert('쏘카존은 필수 입력 입니다.');
+									$('#admin_reg_socar_zone').val('').focus();
+									return;
+								}
+								if($('#admin_reg_car_type').val()===""){
+									alert('차종은 필수 입력 입니다.');
+									$('#admin_reg_car_type').val('').focus();
+									return;
+								}
+								if($('#admin_reg_car_oil_type').val()===""){
+									alert('유종은 필수 입력 입니다.');
+									$('#admin_reg_car_oil_type').val('').focus();
+									return;
+								}
+								if($('#admin_reg_rent_amt').val()===""){
+									alert('대여요금 은 필수 입력 입니다.');
+									$('#admin_reg_rent_amt').val('').focus();
+									return;
+								}
+								if($('#admin_reg_drive_amt').val()===""){
+									alert('주행요금 은 필수 입력 입니다.');
+									$('#admin_reg_drive_amt').val('').focus();
+									return;
+								}
+								var join_info = {
+										'carNum' : $('#admin_reg_car_num').val(),
+										'socarZone' : $('#admin_reg_socar_zone').val(),
+										'carImg' : $('#admin_reg_img_name').val(),
+										'carType' : $('#admin_reg_car_type').val(),
+										'oilType' : $('#admin_reg_car_oil_type').val(),
+										'carOption' : $('#admin_reg_car_option').val(),
+										'rentAmt' : $('#admin_reg_rent_amt').val(),
+										'driveAmt' : $('#admin_reg_drive_amt').val()										
+									};
+							    $.ajax({
+									url : app.context()+'/admin/car_regist',
+									type : 'post',
+									contentType : 'application/json',
+									data : JSON.stringify(join_info),
+									dataType : 'json',
+									success : function(data){
+										if(data.message==='success'){
+											admin.admin_car_form(1);
+										}else{
+											alert('차량등록시 알 수 없는 에러가  발생했습니다.');
+										}
+									},
+									error : function(x,s,m){
+										alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+									}
+									
+								});
+							});
+						}
+					},
+					error : function(x,s,m){
+						alert('차량번호 중복체크시 발생한 에러'+m);
+					}
+				});
+			});
 		},
 		admin_coupon_form : function(){
 			$('#admin_article').empty().html(ADMIN_COUPON);	
 		},								
-		car_regist_form : function(){
-			$('#admin_article').empty().html(ADMIN_CAR_REGIST);	
-			$('#brn_admin_car_regist').click(function(e){
-				e.preventDefault();
-				$('#admin_article').html(ADMIN_CAR);
-			}); 
-		},
+		
 		admin_coupon_detail_form : function(){
 			$('#admin_article').empty().html(ADMIN_COUPON_DETAIL);	
 			$('#admin_article').on('click','#a_admin_coupon_list',function(e){

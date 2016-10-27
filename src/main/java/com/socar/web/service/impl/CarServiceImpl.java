@@ -35,8 +35,16 @@ public class CarServiceImpl implements CarService{
 	}
 	@Override
 	public Retval update(CarDTO param) {
-		// TODO Auto-generated method stub
-		return null;
+		CarMapper mapper = sqlSession.getMapper(CarMapper.class);
+		logger.info("CARSERVICE IMPL UPDATE CARNUM = {}",param.getCarNum());
+		int result = mapper.update(param);
+		logger.info("CARSERVICE IMPL UPDATE COUNT = {}",result);
+		if(result==0){
+			ret.setMessage("fail");
+		}else{
+			ret.setMessage("success");
+		}
+		return ret;
 	}
 	@Override
 	public Retval delete(CarDTO param) {
@@ -69,6 +77,12 @@ public class CarServiceImpl implements CarService{
 	public CarDTO car_find_by_num(Command command) {
 		CarMapper mapper = sqlSession.getMapper(CarMapper.class);
 		return mapper.car_find_by_num(command);
+	}
+	@Override
+	public int existId(String carNum) {
+		CarMapper mapper = sqlSession.getMapper(CarMapper.class);
+		logger.info("CarService existId = {}",carNum);
+		return mapper.existId(carNum);
 	}
 
 }

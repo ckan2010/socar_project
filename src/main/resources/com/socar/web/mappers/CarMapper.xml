@@ -69,4 +69,18 @@ order by t2.seq asc
 	  FROM    car_v c
 	  where ${keyField} = #{keyword}
    </select>
+   <update id="update" statementType="CALLABLE" parameterType="com.socar.web.domains.CarDTO">
+      { call MYSQL.UPDATE_CAR(
+         #{carOption, mode=IN,jdbcType=VARCHAR},
+         #{socarZone, mode=IN,jdbcType=VARCHAR},
+         #{rentAmt, mode=IN,jdbcType=INTEGER},
+         #{driveAmt, mode=IN,jdbcType=INTEGER},
+         #{carNum, mode=IN,jdbcType=VARCHAR},
+         #{carImg, mode=IN,jdbcType=VARCHAR}
+      )
+      }
+   </update>
+   <select id="existId" parameterType="com.socar.web.domains.CarDTO" resultType="int">
+      select count(*) from car_v where carNum = #{carNum}
+   </select>
 </mapper>

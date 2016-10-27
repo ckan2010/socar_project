@@ -175,9 +175,6 @@ public class AdminController {
 	}
 	@RequestMapping(value="/customer_answer",method=RequestMethod.POST,consumes="application/json")
 	public @ResponseBody  Retval customer_answer(@RequestBody CustomerDTO param) {		
-		logger.info("CUSTOMER ANSWER {}","EXEUTE");
-		logger.info("CUSTOMER ANSWER CUSTOMERSEQ = {}",param.getCustomerSeq());
-		logger.info("CUSTOMER ANSWER ANSWER = {}",param.getAnswer());
 		cus_service.update(param);
 		retval.setMessage("success");
 		return retval;
@@ -236,6 +233,29 @@ public class AdminController {
 		command.setKeyField(keyField);
 		command.setKeyword(keyword);
 		return (CarDTO) car_service.car_find_by_num(command);
+	}
+	@RequestMapping(value="/car_update",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody  Retval car_update(@RequestBody CarDTO param) {		
+		logger.info("CAR UPDATE {}","EXEUTE");
+		logger.info("CAR UPDATE SOCARZONE = {}",param.getSocarZone());
+		logger.info("CAR UPDATE CARNUM = {}",param.getCarNum());
+		car_service.update(param);
+		retval.setMessage("success");
+		return retval;
+	}
+	@RequestMapping("/car_num_chk_dup/{carNum}")
+	public @ResponseBody  Retval car_num__chk_dup(@PathVariable String carNum) {
+		logger.info("CAR NUM CHECK DUP {}","EXEUTE");
+		logger.info("CAR NUM IS {}",carNum);
+		if (car_service.existId(carNum) == 1) {
+			retval.setFlag("TRUE");
+			retval.setMessage("존재하는 차량번호 입니다.");
+		} else {
+			retval.setFlag("FALSE");
+			retval.setMessage("사용가능 차량번호 입니다.");
+			retval.setCarNum(carNum);
+		}
+		return retval;
 	}
 	@RequestMapping("/coupon_list/{pgNum}")
 	public @ResponseBody HashMap<String,Object> coupon_list(@PathVariable String pgNum) {

@@ -24,4 +24,5 @@ public interface CarService {
 	public Retval find_count(Command command);
 	public List<?> find(Command command);
 	public CarDTO car_find_by_num(Command command);
+	public int existId(String carNum);
 }
