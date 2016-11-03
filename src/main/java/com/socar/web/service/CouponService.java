@@ -22,4 +22,5 @@ public interface CouponService {
 	public List<CouponDTO> list(Command command);
 	public Retval find_count(Command command);
 	public List<?> find(Command command);
+	public CouponDTO coupon_find_by_seq(Command command);
 }

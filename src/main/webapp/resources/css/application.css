@@ -258,6 +258,7 @@ body {
 #regist_email,
 #regist_name,
 #regist_phone,
+#regist_address,
 #textarea
 {
   background: rgba(255,255,255,0.1);
@@ -871,7 +872,7 @@ div .faq_lnb .my_pay_section{float: left;}
 
 
 .couponbook_cont {border-top:1px solid #d6d6d6;background-color:#f8f8f8;}/*864*/
-.list_couponbook {display:block;overflow:hidden;width:1005px;padding:13px 0 19px;margin-left:-21px;}
+.list_couponbook {overflow:hidden;width:1005px;padding:13px 0 19px;margin-left:-21px;}
 .list_couponbook li {position:relative;float:left;width:312px;height:396px;margin:0 0 21px 21px;border:0px solid #dedede;background:url('../img/coupon/img_coupon_done.gif') 0 0 #fff;}
 .list_couponbook .flag {position:absolute;top:-1px;left:-1px;}
 .list_couponbook .end_layer {display:none;position:absolute;top:-1px;left:-1px;border:1px solid #dedede;background:rgba(255,255,255,0.8);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#9cffffff,endColorstr=#9cffffff);width:312px;height:167px;}
@@ -887,7 +888,7 @@ div .faq_lnb .my_pay_section{float: left;}
 .list_couponbook .cont .tit_cont {padding:10px 0 11px;height:80px;}
 .list_couponbook .cont .tit_cont .txt {padding-top:8px;font-size:12px;line-height:16px;color:#2eb1f1;letter-spacing:-1px;}
 .list_couponbook .cont .tit_cont .txt strong {color:#2eb1f1;}
-.list_couponbook .cont .tit_cont .tit {font-weight:bold;font-size:14px;line-height:0;color:#333;letter-spacing:-1px;}
+.list_couponbook .cont .tit_cont .tit {font-weight:bold;font-size:14px;color:#333;letter-spacing:-1px;}
 .list_couponbook .cont .box_listcont {height:90px;padding-bottom:3px;}
 .list_couponbook .list_cont {display:block;overflow:hidden;width:100%;}
 .list_couponbook .list_cont dt {float:left;width:55px;padding:1px 0;color:#999;font-size:11px;line-height:13px;letter-spacing:-1px;}
@@ -1103,7 +1104,7 @@ rental
 #socar .list{margin:0; height:152px; overflow-y:auto;}
 #socar li{border-top:1px solid #eee;}
 #admin_car_img{width: 85px;height: 85px; float: left;}
-
+#admin_reg_car_img{width: 50px;height: 50px; float: left;}
 /* socar */
 #oneway_list {top:214px; width:242px;}
 #oneway_list h4{border-color:#c9c9c9; background:url('../img/booking/location_search_bg.gif') repeat-x left top;}

@@ -21,7 +21,7 @@
                      ,(SELECT @ROWNUM := 0) R
 	         ) t2
         where t2.seq between #{start} and #{end}
-        order by t2.seq asc;
+        order by t2.couponMasterSeq asc;
    </select>
    <select id="count" resultType="com.socar.web.domains.Retval" parameterType="com.socar.web.domains.Retval">
    	select count(*) as count from coupon_master
@@ -42,7 +42,7 @@
                      ,cm.coupon_count couponCount
 	          from    coupon_master cm
                      ,(SELECT @ROWNUM := 0) R
-              where   cm.coupon_name like CONCAT('%',#{keyword},'%')
+              where   cm.coupon_name like CONCAT('%',#{keyword},'%') 
 	     ) t2
    </select>
 	<select id="find" resultType="com.socar.web.domains.CouponDTO" parameterType="com.socar.web.domains.Command">
@@ -66,4 +66,42 @@
 	where t2.seq between #{start} and #{end}
 	order by t2.seq asc
    </select>
+   <select id="coupon_find_by_seq" resultType="com.socar.web.domains.CouponDTO" parameterType="com.socar.web.domains.Command">
+      select  cm.coupon_master_seq                                         couponMasterSeq
+             ,cm.coupon_name couponName
+             ,CONCAT(date_format(cm.open_date_start,'%Y-%m-%d %H'),'시')   openDateStart
+		     ,CONCAT(date_format(date_add(cm.open_date_end,interval 1 second),'%Y-%m-%d %H'),'시')     openDateEnd
+		     ,CONCAT(date_format(date_add(cm.ep_date,interval 1 second),'%Y-%m-%d %H'),'시')           epDate
+		     ,cm.option_header     optionHeader
+		     ,cm.option_detail     optionDetail
+		     ,cm.img_name          imgName
+		     ,cm.dc_option         dcOption
+		     ,cm.dc 
+		     ,cm.coupon_count      couponCount
+	  FROM    coupon_master cm
+	  where cm.coupon_master_seq = #{keyword}
+   </select>
+   <update id="update" statementType="CALLABLE" parameterType="com.socar.web.domains.CouponDTO">
+      { call MYSQL.UPDATE_COUPON_MASTER(
+         #{couponMasterSeq, mode=IN,jdbcType=INTEGER},
+         #{optionHeader, mode=IN,jdbcType=CLOB},
+         #{optionDetail, mode=IN,jdbcType=VARCHAR}
+      )
+      }
+   </update>
+   <insert id="regist" statementType="CALLABLE" parameterType="com.socar.web.domains.CouponDTO">
+      { call MYSQL.INSERT_COUPON_MASTER(
+         #{couponName, mode=IN,jdbcType=VARCHAR},
+         #{openDateStart, mode=IN,jdbcType=VARCHAR},
+         #{openDateEnd, mode=IN,jdbcType=VARCHAR},
+         #{epDate, mode=IN,jdbcType=VARCHAR},
+         #{optionHeader, mode=IN,jdbcType=VARCHAR},
+         #{optionDetail, mode=IN,jdbcType=CLOB},
+         #{imgName, mode=IN,jdbcType=VARCHAR},
+         #{dcOption, mode=IN,jdbcType=VARCHAR},
+         #{dc, mode=IN,jdbcType=INTEGER},
+         #{couponCount, mode=IN,jdbcType=INTEGER}
+      )
+      }
+   </insert>
 </mapper>

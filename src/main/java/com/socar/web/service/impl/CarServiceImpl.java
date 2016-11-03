@@ -16,6 +16,7 @@ import com.socar.web.domains.CarDTO;
 import com.socar.web.domains.Command;
 import com.socar.web.domains.MemberDTO;
 import com.socar.web.domains.Retval;
+import com.socar.web.mappers.AdminMapper;
 import com.socar.web.mappers.CarMapper;
 import com.socar.web.mappers.CustomerMapper;
 import com.socar.web.service.BookingService;
@@ -30,15 +31,19 @@ public class CarServiceImpl implements CarService{
 	@Autowired Retval ret;
 	@Override
 	public Retval regist(CarDTO param) {
-		// TODO Auto-generated method stub
-		return null;
+		CarMapper mapper = sqlSession.getMapper(CarMapper.class);
+		int result = mapper.regist(param);
+		if(result==0){
+			ret.setMessage("fail");
+		}else{
+			ret.setMessage("success");
+		}
+		return ret;
 	}
 	@Override
 	public Retval update(CarDTO param) {
 		CarMapper mapper = sqlSession.getMapper(CarMapper.class);
-		logger.info("CARSERVICE IMPL UPDATE CARNUM = {}",param.getCarNum());
 		int result = mapper.update(param);
-		logger.info("CARSERVICE IMPL UPDATE COUNT = {}",result);
 		if(result==0){
 			ret.setMessage("fail");
 		}else{

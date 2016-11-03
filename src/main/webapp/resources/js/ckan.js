@@ -371,20 +371,29 @@ var ADMIN_CAR_REGIST = '<div id= "admin_car" class="box">'
 	+'</tr>'
 	+'<tr>'
 	+'<th>차량</th>'
-	+'<td><img src="'+app.img()+'/car_image/" id="admin_reg_car_img">'
+	+'<td><img src="#" id="admin_reg_car_img" >'
 	+'<input id="admin_reg_car_type" type="text" name="title" class="input" value="" style="width:200px">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>유종</th>'
 	+'<td>'
-	+'<input id="admin_reg_car_oil_type" type="text" name="title" class="input" value="" style="width:60px">'
+	+'<select name="admin_reg_car_oil_type" id="admin_reg_car_oil_type">'
+	+'<option value="휘발유" selected>휘발유</option>'
+	+'<option value="경유">경유</option>'
+	+'<option value="LPG">LPG</option>'
+	+'</select>'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>옵션</th>'
 	+'<td>'
-	+'<input id="admin_reg_car_option" type="text" name="option" class="input" value="" style="width:400px">'
+	+'<select name="admin_reg_car_option" id="admin_reg_car_option">'
+	+'<option value="네비게이션" selected>네비게이션</option>'
+	+'<option value="블랙박스">블랙박스</option>'
+	+'<option value="오토변속기어">오토변속기어</option>'
+	+'<option value="오토변속기어,네비게이션,블랙박스">오토변속기어,네비게이션,블랙박스</option>'
+	+'</select>'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
@@ -402,7 +411,7 @@ var ADMIN_CAR_REGIST = '<div id= "admin_car" class="box">'
 	+'<tr>'
 	+'<th>차량이미지</th>'
 	+'<td>'
-	+'<input id="admin_reg_img_name" type="file" class="inquiry_input" name="userfile" value="">'
+	+'<input id="admin_reg_img_name" type="file" onchange="admin.readURL(this);" class="inquiry_input" name="userfile" value="">'
 	+'<span class="tip ml10">이미지 파일은 jpg, png, gif 만 첨부가능합니다.</span>'
 	+'</td>'
 	+'</tr>'
@@ -428,12 +437,21 @@ var ADMIN_COUPON = '<div id= "admin_coupon" class="box">'
 	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
 	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
 	+'</ul>'
-	+'<div class="section1">'
-	+'<h3><img style="padding-top: 15px; padding-bottom: 15px" src="'+app.img()+'/coupon_mag.jpg" alt="쿠폰관리"><a id="a_admin_coupon_regist">'
-	+'<input id="btn_coupon_regist" style="padding-top: 15px; float: right;" type="image" src="'+app.img()+'/notice_write.gif" alt="등록" ></a>'
+	+'<div style="margin-top: 30px; margin-left: 170px;" class="section1">'
+	+'<h3><img style="margin-bottom: 15px; margin-left: 10px;" src="'+app.img()+'/coupon_mag.jpg" alt="쿠폰관리">'
 	+'</h3>'
-	+'<table style="margin-left: 0" cellspacing="0" summary="쿠폰관리" class="admin_cols">'
-	+'<colgroup><col width="100"><col width="400"><col width="300"><col width="100"><col width="200"><col></colgroup>'
+	+'<div style="position:absolute; top:135px; right:60px;" class="notice-search">'
+	+'<fieldset>'
+	+'<input type="text" name="coupon_keyword" id="coupon_keyword" class="input">'	
+	+'<input id="btn_coupon_search" type="image" src="'+app.img()+'/btn_notice_search.gif" alt="검색">'
+	+'<a id="a_admin_coupon_regist">'
+	+'<input id="btn_coupon_regist" type="image" src="'+app.img()+'/notice_write.gif" alt="등록" ></a>'
+	+'</a>'
+	+'</fieldset>'
+	+'</div>'
+	;
+var ADMIN_COUPON_TH = '<table style="margin-left: 0" cellspacing="0" summary="쿠폰관리" class="admin_cols">'
+	+'<colgroup><col width="84"><col width="400"><col width="300"><col width="200"><col width="200"></colgroup>'
 	+'<thead>'
 	+'<tr>'
 	+'<th>쿠폰번호</th>'
@@ -445,59 +463,21 @@ var ADMIN_COUPON = '<div id= "admin_coupon" class="box">'
 	+'</tr>'
 	+'</thead>'
 	+'<tbody>'
-	+'<tr>'
-	+'<td class="subj"><a id="a_admin_coupon_detail">1</a></td>'
-	+'<td><img src="'+app.img()+'/gif_coupon.jpg" id="car_thumb"><p>선물쿠폰</p></td>'
-	+'<td>2012-01-03 0시 ~ 2012-02-04 0시</td>'
-	+'<td>2012-02-04 0시</td>'
-	+'<td>50%할인이가능</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td class="subj"><a id="a_admin_coupon_detail">2</a></td>'
-	+'<td><img src="'+app.img()+'/gif_coupon1.jpg" id="car_thumb"><p>반짝쿠폰</p></td>'
-	+'<td>2012-01-04 0시 ~ 2012-02-05 0시</td>'
-	+'<td>2012-02-05 0시</td>'
-	+'<td>2000원 할인</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td class="subj"><a id="a_admin_coupon_detail">3</a></td>'
-	+'<td><img src="'+app.img()+'/gif_coupon2.jpg" id="car_thumb"><p>좋은쿠폰</p></td>'
-	+'<td>2012-01-05 0시 ~ 2012-02-05 0시</td>'
-	+'<td>2012-02-05 0시</td>'
-	+'<td>500원 할인</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td class="subj"><a id="a_admin_coupon_detail">4</a></td>'
-	+'<td><img src="'+app.img()+'/gif_coupon3.jpg" id="car_thumb"><p>제주공항에서 쏘카타레이![레이32%할인쿠폰] 가을엔 제주올레이?</p></td>'
-	+'<td>2016-09-29 11시 ~ 2016-10-08 0시</td>'
-	+'<td>2016-10-09 0시</td>'
-	+'<td>24시간 이상 대여시 사용가능 제주공항 전용쿠폰</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td class="subj"><a id="a_admin_coupon_detail">5</a></td>'
-	+'<td><img src="'+app.img()+'/gif_coupon4.jpg" id="car_thumb"><p>덤으로 영화티켓.기프티콘 선물이![2천원할인] 선물이 쏟아지는 쿠폰</p></td>'
-	+'<td>2016-09-26 15시 ~ 2016-10-07 0시</td>'
-	+'<td>2016-10-08 0시</td>'
-	+'<td>2시간 이상 대여시 사용가능</td>'
-	+'</tr>'
-	+'<tr>'
-	+'<td class="subj"><a id="a_admin_coupon_detail">6</a></td>'
-	+'<td><img src="'+app.img()+'/gif_coupon5.jpg" id="car_thumb"><p>주중 낮 5시간 9,900원! [오늘낮할인] 핫 하게 특.급.할.인!</p></td>'
-	+'<td>2016-08-01 0시 ~ 2016-10-31 17시</td>'
-	+'<td>2016-10-31 17시</td>'
-	+'<td>5시간 예약전용 주중전용 쿠폰</td>'
-	+'</tr>'
-	+'</tbody>'
-	+'</table>'
-	+'<div id="admin_paginate" class="paginate">'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	+'</div>';
-
-
+	;
+var ADMIN_COUPON_FIND = '<div id= "admin_coupon" class="box">'
+	+'<div id="container">'
+	+'<div id="content">'
+	+'<div class="admin_lnb">'
+	+'<ul class="admin_lnb">'
+	+'<li><a id="a_admin_notice" title="공지사항" class="admin_lnb1">공지사항</a></li>'
+	+'<li><a id="a_admin_inquiry_list" title="Q&A" class="admin_lnb2">문의&답변</a></li>'
+	+'<li><a id="a_admin_car_list" title="차량관리" class="admin_lnb3">차량관리</a></li>'
+	+'<li><a id="a_admin_coupon_list" title="쿠폰관리" class="admin_lnb4">쿠폰관리</a></li>'
+	+'</ul>'
+	+'<div class="section1">'
+	+'<h3><img style="padding-top: 15px; padding-bottom: 15px" src="'+app.img()+'/coupon_mag.jpg" alt="쿠폰관리">'
+	+'</h3>'
+	;
 var ADMIN_COUPON_DETAIL = '<div id= "admin_coupon" class="box">'
 	+'<div id="container">'
 	+'<div id="content">'
@@ -514,45 +494,52 @@ var ADMIN_COUPON_DETAIL = '<div id= "admin_coupon" class="box">'
 	+'<tbody>'
 	+'<tr>'
 	+'<td>쿠폰번호</td>'
-	+'<td>6</td>'
+	+'<td id="admin_coupon_seq"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>쿠폰명</th>'
-	+'<td><img src="'+app.img()+'/gif_coupon5.jpg" id="car_thumb">주중 낮 5시간 9,900원! [오늘낮할인] 핫 하게 특.급.할.인!</td>'
+	+'<td><img src="" id="admin_coupon_img"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<th></th>'
+	+'<td id="admin_coupon_name"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>오픈기간</th>'
-	+'<td>2016-08-01 0시 ~ 2016-10-31 17시</td>'
+	+'<td id="admin_coupon_open_date"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>유효기간</th>'
-	+'<td>2016-10-31 17시</td>'
+	+'<td id="admin_coupon_ep_date"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>사용조건</th>'
-	+'<td>5시간 예약전용 주중전용 쿠폰</td>'
+	+'<td id="u_admin_coupon_option_header"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>자세히</th>'
-	+'<td>'
-	+'예약오픈시간쿠폰 별 유효기간 내 상시오픈대여/반납 가능시간주중 8시 ~ 17시 시간 내 대여/반납 가능예약가능시간 제한총 5시간 예약시 사용가능 (이후 시간은 반납연장으로 대여 가능하며, 연장된 시간은 쿠폰가격이 아닌 기존가격으로 적용) 차종제한모닝/스파크/레이/프라이드/엑센트/아반떼/K3/티볼리/트랙스/K5 대여시 사용가능 기타제주공항/제주공항입구 교차로 존에서 사용불가 왕복예약시 사용가능 *이 쿠폰은 예고없이 종료될 수 있습니다*'
+	+'<td >'
+	+'<textarea id="u_admin_coupon_option_detail" cols="" name="contents" rows="15" class="textarea" style="width:750px"></textarea>'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>할인조건</th>'
-	+'<td>금액</td>'
+	+'<td id="admin_coupon_dc_option">'
+	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>할인</th>'
-	+'<td>9,900원</td>'
+	+'<td id="admin_coupon_dc"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>남은쿠폰수량</th>'
-	+'<td>3,023</td>'
+	+'<td id="admin_coupon_count"></td>'
 	+'</tr>'
 	+'</tbody>'
 	+'</table>'
-	+'<p class="centerBtn"><a id="a_admin_coupon_list"><img src="http://socdnw.speedgabia.com/template/asset/images/common/btn_list.gif" alt="목록보기"></a></p>'
+	+'<p class="centerBtn">'
+	+'<input id="btn_admin_coupon_update" type="submit" value="" class="btn_submit">'
+	+'</p>'
 	+'</div>'
 	+'</div>'
 	+'</div>'
@@ -572,62 +559,62 @@ var ADMIN_COUPON_REGIST = '<div id= "admin_coupon" class="box">'
 	+'<h3><img src="'+app.img()+'/coupon_mag.jpg" alt="쿠폰관리"></h3>'
 	+'<form id="admin_coupon_regist_form" accept-charset="utf-8" enctype="multipart/form-data">'
 	+'<fieldset>'
-	+'<input type="hidden" name="auth_token" value="fc11e5a1541403123da91ff8596dd4253c2b72bcdkhne">'
-	+'<input type="hidden" name="return_url" value="">'
-	+'<input type="hidden" name="channel" value="www">'
 	+'<table cellspacing="0" class="rows">'
 	+'<tbody>'
 	+'<tr>'
 	+'<th>쿠폰명</th>'
-	+'<td><input id="title" type="text" name="title" class="input" value="" style="width:500px"></td>'
+	+'<td><img src="#" id="admin_reg_coupon_img" ><input id="admin_reg_coupon_name" type="text" name="title" class="input" value="" style="width:500px"></td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>오픈기간</th>'
 	+'<td>'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:100px"> ~'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:100px">'
+	+'<input id="admin_reg_coupon_open_start" type="text" name="title" class="input" value="" style="width:100px"> ~'
+	+'<input id="admin_reg_coupon_open_end" type="text" name="title" class="input" value="" style="width:100px">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>유효기간</th>'
 	+'<td>'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:100px">'
+	+'<input id="admin_reg_coupon_ep_date" type="text" name="title" class="input" value="" style="width:100px">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>사용조건</th>'
 	+'<td>'
-	+'<input id="title" type="text" name="title" class="input" value="" style="width:400px">'
+	+'<input id="admin_reg_option_header" type="text" name="title" class="input" value="" style="width:700px">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>자세히</th>'
 	+'<td>'
-	+'<textarea id="contents" cols="" name="contents" rows="15" class="textarea" style="width:750px"></textarea>'
+	+'<textarea id="admin_reg_option_detail" cols="" name="contents" rows="15" class="textarea" style="width:750px"></textarea>'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>할인조건</th>'
 	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="" style="width:100px">'
+	+'<select name="admin_reg_dc_option" id="admin_reg_dc_option">'
+	+'<option value="금액" selected>금액</option>'
+	+'<option value="%">%</option>'
+	+'</select>'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>할인</th>'
 	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="" style="width:100px">'
+	+'<input id="admin_reg_dc" type="text" name="option" class="input" value="" style="width:100px">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>쿠폰수량</th>'
 	+'<td>'
-	+'<input id="car_option" type="text" name="option" class="input" value="" style="width:100px">'
+	+'<input id="admin_reg_coupon_count" type="text" name="option" class="input" value="" style="width:100px">'
 	+'</td>'
 	+'</tr>'
 	+'<tr>'
 	+'<th>쿠폰이미지</th>'
 	+'<td>'
-	+'<input type="file" class="inquiry_input" name="userfile" value="">'
+	+'<input id="admin_reg_coupon_img_name" type="file" onchange="admin.couponreadURL(this);" class="inquiry_input" name="userfile" value="">'
 	+'<span class="tip ml10">이미지 파일은 jpg, png, gif 만 첨부가능합니다.</span>'
 	+'</td>'
 	+'</tr>'
@@ -644,6 +631,7 @@ var ADMIN_COUPON_REGIST = '<div id= "admin_coupon" class="box">'
 	+'</div>'
 	+'</div>';
 var admin = (function(){
+	var car_num_chk_dup_flag = "TRUE";
 	var init = function(){onCreate()};
 	var setContentView = function(){
 	};
@@ -665,12 +653,10 @@ var admin = (function(){
 		$('#admin_article').on('click','#a_admin_car_regist',function(){
 			admin.car_regist_form();
 		});
+		$('#car_num_chk_dup').click(function(){admin.car_num_chk_dup();});		
 		$('#admin_article').on('click','#a_admin_coupon_list',function(){
-			admin.admin_coupon_form();
+			admin.admin_coupon_form(1);
 		});		
-		$('#admin_article').on('click','#a_admin_coupon_detail',function(){
-			admin.admin_coupon_detail_form();
-		});
 		$('#admin_article').on('click','#a_admin_coupon_regist',function(){
 			admin.admin_coupon_regist_form();
 		});
@@ -1139,9 +1125,9 @@ var admin = (function(){
 					$.each(data.list, function(i,car){
 						car_list +=
 							'<tr>'
-							+'<td class="subj"> <a href="#" onclick="admin.car_update_form('+car.seq+')" id= "a_admin_notice_content">'+car.carNum+'</a></td>'
+							+'<td > '+car.carNum+'</td>'
 							+'<td>'+car.socarZone+'</td>'
-							+'<td><img src="'+app.img()+'/car_image/'+car.carImg+'" id="car_thumb"><p>'+car.carType+'</p></td>'
+							+'<td class="subj"><a href="#" onclick="admin.car_update_form('+car.seq+')" id= "a_admin_notice_content"><img src="'+app.img()+'/car_image/'+car.carImg+'" id="car_thumb"></a><p>'+car.carType+'</p></td>'
 							+'<td>'+car.oilType+'</td>'
 							+'<td>'+car.carOption+'</td>'
 							+'<td>'+admin.numberWithCommas(car.rentAmt)+'원</td>'
@@ -1234,9 +1220,9 @@ var admin = (function(){
 					$.each(data.list, function(i,car){
 						car_list +=
 							'<tr>'
-							+'<td class="subj"> <a href="#" onclick="admin.car_update_form('+car.seq+')" id= "a_admin_notice_content">'+car.carNum+'</a></td>'
-							+'<td>'+car.socarZone+'</td>'
-							+'<td><img src="'+app.img()+'/car_image/'+car.carImg+'" id="car_thumb"><p>'+car.carType+'</p></td>'
+							+'<td > '+car.carNum+'</td>'
+							+'<td class="subj">'+car.socarZone+'</td>'
+							+'<td><a href="#" onclick="admin.car_update_form('+car.seq+')" id= "a_admin_notice_content"><img src="'+app.img()+'/car_image/'+car.carImg+'" id="car_thumb"></a><p>'+car.carType+'</p></td>'
 							+'<td>'+car.oilType+'</td>'
 							+'<td>'+car.carOption+'</td>'
 							+'<td>'+admin.numberWithCommas(car.rentAmt)+'원</td>'
@@ -1345,118 +1331,425 @@ var admin = (function(){
 				});
 			}); 
 		},
+		car_num_chk_dup : function(){
+			$.ajax({
+				url : app.context()+'/admin/car_num_chk_dup/'+$('#admin_reg_car_num').val(),
+				success : function(data){
+					if(data.flag==="TRUE"){
+						$('#admin_reg_car_num_td').html('<input id="admin_reg_car_num" type="text" name="title" class="input" value="" style="width:200px" placeholder="'+data.message+'">');
+						$('#car_num_chk_dup_td').html('<input id="car_num_re_chk" type="button" value="다시조회" style="width:100px;height:30px;">');
+						car_num_chk_dup_flag = data.flag;
+						$('#car_num_re_chk').click(function(){admin.car_num_chk_dup();});						
+					}else{
+						$('#admin_reg_car_num_td').html('<input id="admin_reg_car_num" type="text" name="title" class="input" value="'+data.carNum+'" style="width:200px">');
+						$('#car_num_chk_dup_td').html('<input id="car_num_used" type="button" value="그대로사용" style="width:100px;height:30px;">');							
+						car_num_chk_dup_flag = data.flag;
+					}
+					$('#admin_reg_car_num').keyup(function(){
+						car_num_chk_dup_flag = "TRUE";
+					});
+				},
+				error : function(x,s,m){
+					alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+				}
+			});
+			
+		},		
 		car_regist_form : function(){
 			$('#admin_article').empty().html(ADMIN_CAR_REGIST);	
 			admin.init();
-			$('#car_num_chk_dup').click(function(){
-				var car_num_chk_dup_flag = "";
-				$.ajax({
-					url : app.context()+'/admin/car_num_chk_dup/'+$('#admin_reg_car_num').val(),
+			$('#btn_admin_car_regist').click(function(e){
+				e.preventDefault();
+				if(car_num_chk_dup_flag==="TRUE"){
+					alert('중복체크 하세요.');
+					$('#admin_reg_car_num').focus();
+					$('#car_num_chk_dup_td').html('<input id="car_num_chk_dup" type="button" value="중복체크" style="width:100px;height:30px;">');
+					$('#car_num_chk_dup').click(function(){alert('중복체크버튼1');admin.car_num_chk_dup();});
+					return;									
+				}
+				if($('#admin_reg_car_num').val()===""){
+					alert('차량번호 는 필수 입력 입니다.');
+					$('#admin_reg_car_num').val('').focus();
+					return;
+				}
+				if($('#admin_reg_socar_zone').val()===""){
+					alert('쏘카존은 필수 입력 입니다.');
+					$('#admin_reg_socar_zone').val('').focus();
+					return;
+				}
+				if($('#admin_reg_car_type').val()===""){
+					alert('차종은 필수 입력 입니다.');
+					$('#admin_reg_car_type').val('').focus();
+					return;
+				}
+				if($('#admin_reg_car_oil_type').val()===""){
+					alert('유종은 필수 입력 입니다.');
+					$('#admin_reg_car_oil_type').val('').focus();
+					return;
+				}
+				if($('#admin_reg_rent_amt').val()===""){
+					alert('대여요금 은 필수 입력 입니다.');
+					$('#admin_reg_rent_amt').val('').focus();
+					return;
+				}
+				if($('#admin_reg_drive_amt').val()===""){
+					alert('주행요금 은 필수 입력 입니다.');
+					$('#admin_reg_drive_amt').val('').focus();
+					return;
+				}
+				var fileValue = $("#admin_reg_img_name").val().split("\\");
+				var fileName = fileValue[fileValue.length-1]; // 파일명
+
+				var join_info = {
+						'carNum' : $('#admin_reg_car_num').val(),
+						'socarZone' : $('#admin_reg_socar_zone').val(),
+						'carImg' : fileName,
+						'carType' : $('#admin_reg_car_type').val(),
+						'oilType' : $('#admin_reg_car_oil_type').val(),
+						'carOption' : $('#admin_reg_car_option').val(),
+						'rentAmt' : $('#admin_reg_rent_amt').val(),
+						'driveAmt' : $('#admin_reg_drive_amt').val()										
+					};
+			    $.ajax({
+					url : app.context()+'/admin/car_regist',
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(join_info),
+					dataType : 'json',
 					success : function(data){
-						if(data.flag==="TRUE"){
-							$('#admin_reg_car_num_td').html('<input id="admin_reg_car_num" type="text" name="title" class="input" value="" style="width:200px" placeholder="'+data.message+'">');
-							$('#car_num_chk_dup_td').html('<input id="car_num_re_chk" type="button" value="다시조회" style="width:100px;height:30px;">');
-							car_num_chk_dup_flag = data.flag;
-							admin.init();
+						if(data.message==='success'){
+							admin.admin_car_form(1);
 						}else{
-							$('#admin_reg_car_num_td').html('<input id="admin_reg_car_num" type="text" name="title" class="input" value="'+data.carNum+'" style="width:200px">');
-							$('#car_num_chk_dup_td').html('<input id="car_num_used" type="button" value="그대로사용" style="width:100px;height:30px;">');							
-							car_num_chk_dup_flag = data.flag;
-							admin.init();
-							$('#btn_admin_car_regist').click(function(e){
-								e.preventDefault();
-								alert('중복체크 값 : '+car_num_chk_dup_flag);
-								alert('차량번호 : '+$('#admin_reg_car_num').val());
-								alert('쏘카존 : '+$('#admin_reg_socar_zone').val());
-								if(car_num_chk_dup_flag==="TRUE"){
-									alert('차량번호 가 중복입니다.');
-									$('#admin_reg_car_num').val('').focus();
-									return;
-								}
-								if($('#admin_reg_car_num').val()===""){
-									alert('차량번호 는 필수 입력 입니다.');
-									$('#admin_reg_car_num').val('').focus();
-									return;
-								}
-								if($('#admin_reg_socar_zone').val()===""){
-									alert('쏘카존은 필수 입력 입니다.');
-									$('#admin_reg_socar_zone').val('').focus();
-									return;
-								}
-								if($('#admin_reg_car_type').val()===""){
-									alert('차종은 필수 입력 입니다.');
-									$('#admin_reg_car_type').val('').focus();
-									return;
-								}
-								if($('#admin_reg_car_oil_type').val()===""){
-									alert('유종은 필수 입력 입니다.');
-									$('#admin_reg_car_oil_type').val('').focus();
-									return;
-								}
-								if($('#admin_reg_rent_amt').val()===""){
-									alert('대여요금 은 필수 입력 입니다.');
-									$('#admin_reg_rent_amt').val('').focus();
-									return;
-								}
-								if($('#admin_reg_drive_amt').val()===""){
-									alert('주행요금 은 필수 입력 입니다.');
-									$('#admin_reg_drive_amt').val('').focus();
-									return;
-								}
-								var join_info = {
-										'carNum' : $('#admin_reg_car_num').val(),
-										'socarZone' : $('#admin_reg_socar_zone').val(),
-										'carImg' : $('#admin_reg_img_name').val(),
-										'carType' : $('#admin_reg_car_type').val(),
-										'oilType' : $('#admin_reg_car_oil_type').val(),
-										'carOption' : $('#admin_reg_car_option').val(),
-										'rentAmt' : $('#admin_reg_rent_amt').val(),
-										'driveAmt' : $('#admin_reg_drive_amt').val()										
-									};
-							    $.ajax({
-									url : app.context()+'/admin/car_regist',
-									type : 'post',
-									contentType : 'application/json',
-									data : JSON.stringify(join_info),
-									dataType : 'json',
-									success : function(data){
-										if(data.message==='success'){
-											admin.admin_car_form(1);
-										}else{
-											alert('차량등록시 알 수 없는 에러가  발생했습니다.');
-										}
-									},
-									error : function(x,s,m){
-										alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
-									}
-									
-								});
-							});
+							alert('차량등록시 알 수 없는 에러가  발생했습니다.');
 						}
 					},
 					error : function(x,s,m){
-						alert('차량번호 중복체크시 발생한 에러'+m);
+						alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+					}
+					
+				});
+			});	
+		},
+		readURL : function(input) {
+		    if (input.files) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#admin_reg_car_img').attr('src', e.target.result);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		},
+		admin_coupon_form : function(pgNum){
+			$('#admin_article').empty();
+			$.getJSON(app.context()+'/admin/coupon_list/'+pgNum,function(data){
+				var frame = '';
+				var coupon_list = '';
+				var pagination ='';
+				var startPg = data.startPg;
+				var lastPg = data.lastPg;
+				var pgSize = data.pgSize;
+				var totPg = data.totPg;
+				var groupSize = data.groupSize;
+				var totCount = data.totCount;
+				coupon_list = ADMIN_COUPON;
+				coupon_list += ADMIN_COUPON_TH;					
+				if (data.totCount===0) {
+					coupon_list +='<tr><td colspan=7>등록된 쿠폰이 없습니다.</td></tr>';
+				} else {					
+					$.each(data.list, function(i,coupon){
+						coupon_list +=
+							'<tr>'
+							+'<td>'+coupon.couponMasterSeq+'</td>'
+							+'<td class="subj"><a href="#" onclick="admin.coupon_update_form('+coupon.couponMasterSeq+')"><img src="'+app.img()+'/coupon/'+coupon.imgName+'" id="car_thumb"></a><p>'+coupon.couponName+'</p></td>'
+							+'<td>'+coupon.openDateStart+' ~ '+coupon.openDateEnd+'</td>'
+							+'<td>'+coupon.epDate+'</td>'
+							+'<td>'+coupon.optionHeader+'</td>'
+							+'</tr>';
+					});
+				}				
+				coupon_list += '</tbody></table>'
+				if (data.totCount===0) {
+					pagination = '';
+				} else {
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+	                    var temp;
+	                    if(pgNum % groupSize == 0){
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                    }else{
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+	                    }
+	                    var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_coupon_form('+(temp2)+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+	                        +'</a>'
+	                        +'<a href="#" onclick="admin.admin_coupon_form('+(temp)+')" aria-label="Previous">'
+	                        +'<span aria-hidden="true"><</span>'
+	                        +'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></font>';
+	                    }else{
+	                    	pagination += '<a href="#" onclick="admin.admin_coupon_form('+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                     var temp3;
+	                     if(pgNum % groupSize == 0){
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                     }else{
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                     }
+	                     var temp4 = totPg;
+	                	 pagination += 
+	                            '<a href="#" onclick="admin.admin_coupon_form('+(temp3)+')" aria-label="Next">'
+	                            +'<span aria-hidden="true">></span>'
+	                            +'</a>'
+	                            +'<a href="#" onclick="admin.admin_coupon_form('+(temp4)+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                	coupon_list += pagination;	
+				}
+				coupon_list += ADMIN_NOTICE_END;
+				frame = coupon_list;
+				$('#admin_article').html(frame);				
+				$('#btn_coupon_search').click(function(){
+					if($('#coupon_keyword').val().length>0){
+						admin.admin_find_coupon('couponName',$('#coupon_keyword').val(),1);
+					}else{
+						alert('검색어를 입력해 주세요');
+						$('#coupon_keyword').focus();
+						return false
 					}
 				});
+			});	
+		},
+		admin_find_coupon : function(keyField,keyword,pgNum){
+			$('#admin_article').empty();
+			$.getJSON(app.context()+'/admin/coupon_search/'+keyField+'/'+keyword+'/'+pgNum,function(data){
+				var frame = '';
+				var coupon_list = '';
+				var pagination ='';
+				var startPg = data.startPg;
+				var lastPg = data.lastPg;
+				var pgSize = data.pgSize;
+				var totPg = data.totPg;
+				var groupSize = data.groupSize;
+				var totCount = data.totCount;
+				coupon_list = ADMIN_COUPON_FIND;
+				coupon_list += ADMIN_COUPON_TH;	
+				if (data.totCount===0) {
+					car_list +='<tr><td colspan=7>등록된 쿠폰이 없습니다.</td></tr>';
+				} else {					
+					$.each(data.list, function(i,coupon){
+						coupon_list +=
+							'<tr>'
+							+'<td > '+coupon.couponMasterSeq+'</td>'
+							+'<td class="subj"><a href="#" onclick="admin.coupon_update_form('+coupon.couponMasterSeq+')"><img src="'+app.img()+'/coupon/'+coupon.imgName+'" id="car_thumb"></a><p>'+coupon.couponName+'</p></td>'
+							+'<td>'+coupon.openDateStart+' ~ '+coupon.openDateEnd+'</td>'
+							+'<td>'+coupon.epDate+'</td>'
+							+'<td>'+coupon.optionHeader+'</td>'
+							+'</tr>';
+					});
+				}
+				coupon_list += '</tbody></table>'
+				if (data.totCount===0) {
+					pagination ='';
+				} else {
+					pagination = '<div id="admin_paginate" class="paginate">';
+					if(pgNum > groupSize){
+	                    var temp;
+	                    if(pgNum % groupSize == 0){
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                    }else{
+	                        temp = (Math.floor(((pgNum - groupSize) / groupSize)) * groupSize) + 1;
+	                    }
+	                    var temp2 = 1;
+						pagination += 
+							'<a href="#" onclick="admin.admin_find_coupon(\''+keyField+'\',\''+keyword+'\','+(temp2)+')" aria-label="Previous">'
+							+'<span style="font-size: 30px" aria-hidden="true">&laquo;</span>'
+							+'</a>'
+							+'<a href="#" onclick="admin.admin_find_coupon(\''+keyField+'\',\''+keyword+'\','+(temp)+')" aria-label="Previous">'
+	                        +'<span aria-hidden="true"><</span>'
+	                        +'</a>'
+							;
+	                 }
+	                 for(var i=startPg; i < startPg+groupSize && i <= totPg; i++){
+	                    if(i==pgNum){
+	                       pagination +='<font color="blue"><strong>'+i+'</strong></font>';
+	                    }else{
+	                    	pagination += '&nbsp;<a href="#" onclick="admin.admin_find_coupon(\''+keyField+'\',\''+keyword+'\','+i+')">'+' '+i+' '+'</a>';
+	                    }
+	                    temp_num = i;
+	                 }
+	                 if(temp_num != totPg){
+	                     var temp3;
+	                     if(pgNum % groupSize == 0){
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1 - groupSize;
+	                     }else{
+	                         temp3 = (Math.floor(((pgNum + groupSize) / groupSize)) * groupSize) + 1;
+	                     }
+	                     var temp4 = totPg;
+	                	 pagination += 
+	                            '<a href="#" onclick="admin.admin_find_coupon(\''+keyField+'\',\''+keyword+'\','+(temp3)+')" aria-label="Next">'
+	                            +'<span aria-hidden="true">></span>'
+	                            +'</a>'
+	                            +'<a href="#" onclick="admin.admin_find_coupon(\''+keyField+'\',\''+keyword+'\','+(temp4)+')" aria-label="Next">'
+	                            + '<span style="font-size: 30px" aria-hidden="true">&raquo;</span>'
+	                            +'</a>'
+	                           ;
+	                 }
+	                pagination += '</div>'
+	                coupon_list += pagination;
+				}
+				coupon_list += ADMIN_NOTICE_END;
+				frame = coupon_list;
+				$('#admin_article').html(frame);
 			});
 		},
-		admin_coupon_form : function(){
-			$('#admin_article').empty().html(ADMIN_COUPON);	
-		},								
-		
-		admin_coupon_detail_form : function(){
-			$('#admin_article').empty().html(ADMIN_COUPON_DETAIL);	
-			$('#admin_article').on('click','#a_admin_coupon_list',function(e){
+		coupon_update_form : function(couponMasterSeq){
+			$('#admin_article').empty().html(ADMIN_COUPON_DETAIL);
+			admin.init();
+			$.getJSON(app.context()+'/admin/couponUpdate/couponMasterSeq/'+couponMasterSeq,function(data){
+				$('#admin_coupon_seq').text(data.couponMasterSeq);
+				$('#admin_coupon_img').attr('src',app.img()+'/coupon/'+data.imgName);
+				$('#admin_coupon_name').text(data.couponName);
+				$('#admin_coupon_open_date').text(data.openDateStart+' ~ '+data.openDateEnd);				
+				$('#admin_coupon_ep_date').text(data.epDate);
+				$('#u_admin_coupon_option_header').html('<input type="text" id="admin_coupon_option_header" class="input" value="'+data.optionHeader+'" style="width:700px"/>');				
+				//$('#u_admin_coupon_option_detail').html('<input type="text" id="admin_coupon_option_detail" class="input" value="'+data.optionDetail+'" style="width:400px"/>');
+				$('#u_admin_coupon_option_detail').text(data.optionDetail);
+				$('#admin_coupon_dc_option').text(data.dcOption);
+				$('#admin_coupon_dc').text(admin.numberWithCommas(data.dc));
+				$('#admin_coupon_count').text(admin.numberWithCommas(data.couponCount));
+			});
+			$('#btn_admin_coupon_update').click(function(e){
 				e.preventDefault();
-				$('#admin_article').html(ADMIN_COUPON);
+				var join_info = {
+						'optionHeader' : $('#admin_coupon_option_header').val(),
+						'optionDetail' : $('#admin_coupon_option_detail').val(),
+						'couponMasterSeq' : $('#admin_coupon_seq').html()
+					};
+			    $.ajax({
+					url : app.context()+'/admin/coupon_update',
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(join_info),
+					dataType : 'json',
+					success : function(data){
+						if(data.message==='success'){
+							admin.admin_coupon_form(1);
+						}else{
+							alert('쿠폰 업데이트시 알 수 없는 에러가  발생했습니다.');
+						}
+					},
+					error : function(x,s,m){
+						alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+					}
+					
+				});
 			});
 		},
 		admin_coupon_regist_form : function(){
 			$('#admin_article').empty().html(ADMIN_COUPON_REGIST);	
+			admin.init();
 			$('#btn_coupon_submit').click(function(e){
 				e.preventDefault();
-				$('#admin_article').html(ADMIN_COUPON);
-			}); 
-		}		
+				if($('#admin_reg_coupon_name').val()===""){
+					alert('쿠폰명은 필수 입력 입니다.');
+					$('#admin_reg_coupon_name').focus();
+					return;									
+				}
+				if($('#admin_reg_coupon_open_start').val()===""){
+					alert('오픈시작은 필수 입력 입니다.');
+					$('#admin_reg_coupon_open_start').focus();
+					return;
+				}
+				if($('#admin_reg_coupon_open_end').val()===""){
+					alert('오픈종료는 필수 입력 입니다.');
+					$('#admin_reg_coupon_open_end').focus();
+					return;
+				}
+				if($('#admin_reg_coupon_ep_date').val()===""){
+					alert('유효기간은 필수 입력 입니다.');
+					$('#admin_reg_coupon_ep_date').focus();
+					return;
+				}
+				if($('#admin_reg_option_header').val()===""){
+					alert('조건은 필수 입력 입니다.');
+					$('#admin_reg_option_header').val('').focus();
+					return;
+				}
+				if($('#admin_reg_option_detail').val()===""){
+					alert('조건상세는 필수 입력 입니다.');
+					$('#admin_reg_option_detail').val('').focus();
+					return;
+				}
+				if($('#admin_reg_dc_option').val()===""){
+					alert('할인조건은 필수 입력 입니다.');
+					$('#admin_reg_dc_option').focus();
+					return;
+				}
+				if($('#admin_reg_dc').val()===""){
+					alert('할인은 필수 입력 입니다.');
+					$('#admin_reg_dc').focus();
+					return;
+				}
+				if($('#admin_reg_coupon_count').val()===""){
+					alert('쿠폰건수는 필수 입력 입니다.');
+					$('#admin_reg_coupon_count').focus();
+					return;
+				}
+				var fileValue = $("#admin_reg_coupon_img_name").val().split("\\");
+				var fileName = fileValue[fileValue.length-1]; // 파일명
+
+				var join_info = {
+						'imgName' : fileName,
+						'couponName' : $('#admin_reg_coupon_name').val(),
+						'openDateStart' : $('#admin_reg_coupon_open_start').val(),						
+						'openDateEnd' : $('#admin_reg_coupon_open_end').val(),
+						'epDate' : $('#admin_reg_coupon_ep_date').val(),
+						'optionHeader' : $('#admin_reg_option_header').val(),
+						'optionDetail' : $('#admin_reg_option_detail').val(),
+						'dcOption' : $('#admin_reg_dc_option').val(),
+						'dc' : $('#admin_reg_dc').val(),
+						'couponCount' : $('#admin_reg_coupon_count').val()
+					};
+			    $.ajax({
+					url : app.context()+'/admin/coupon_regist',
+					type : 'post',
+					contentType : 'application/json',
+					data : JSON.stringify(join_info),
+					dataType : 'json',
+					success : function(data){
+						if(data.message==='success'){
+							admin.admin_coupon_form(1);
+						}else{
+							alert('쿠폰등록시 알 수 없는 에러가  발생했습니다.');
+						}
+					},
+					error : function(x,s,m){
+						alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+					}
+					
+				});
+			});	
+		},
+		couponreadURL : function(input) {
+		    if (input.files) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#admin_reg_coupon_img').attr('src', e.target.result);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
 	};
 })();

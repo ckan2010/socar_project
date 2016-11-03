@@ -28,13 +28,27 @@ public class CouponServiceImpl implements CouponService{
 	@Autowired Retval ret;
 	@Override
 	public Retval regist(CouponDTO param) {
-		// TODO Auto-generated method stub
-		return null;
+		CouponMapper mapper = sqlSession.getMapper(CouponMapper.class);
+		int result = mapper.regist(param);
+		if(result==0){
+			ret.setMessage("fail");
+		}else{
+			ret.setMessage("success");
+		}
+		return ret;
 	}
 	@Override
 	public Retval update(CouponDTO param) {
-		// TODO Auto-generated method stub
-		return null;
+		CouponMapper mapper = sqlSession.getMapper(CouponMapper.class);
+		logger.info("COUPONSERVICE IMPL UPDATE COUPONseq = {}",param.getCouponMasterSeq());
+		int result = mapper.update(param);
+		logger.info("COUPONSERVICE IMPL UPDATE COUNT = {}",result);
+		if(result==0){
+			ret.setMessage("fail");
+		}else{
+			ret.setMessage("success");
+		}
+		return ret;
 	}
 	@Override
 	public Retval delete(CouponDTO param) {
@@ -62,6 +76,11 @@ public class CouponServiceImpl implements CouponService{
 		CouponMapper mapper = sqlSession.getMapper(CouponMapper.class);
 		Retval retval = mapper.find_count(command);
 		return retval;
+	}
+	@Override
+	public CouponDTO coupon_find_by_seq(Command command) {
+		CouponMapper mapper = sqlSession.getMapper(CouponMapper.class);
+		return mapper.coupon_find_by_seq(command);
 	}
 
 }

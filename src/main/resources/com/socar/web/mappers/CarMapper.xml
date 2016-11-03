@@ -83,4 +83,17 @@ order by t2.seq asc
    <select id="existId" parameterType="com.socar.web.domains.CarDTO" resultType="int">
       select count(*) from car_v where carNum = #{carNum}
    </select>
+   <insert id="regist" statementType="CALLABLE" parameterType="com.socar.web.domains.CarDTO">
+      { call MYSQL.INSERT_CAR(
+         #{carNum, mode=IN,jdbcType=VARCHAR},
+         #{carType, mode=IN,jdbcType=VARCHAR},
+         #{oilType, mode=IN,jdbcType=VARCHAR},
+         #{carOption, mode=IN,jdbcType=VARCHAR},
+         #{socarZone, mode=IN,jdbcType=VARCHAR},
+         #{rentAmt, mode=IN,jdbcType=INTEGER},
+         #{driveAmt, mode=IN,jdbcType=INTEGER},
+         #{carImg, mode=IN,jdbcType=VARCHAR}
+      )
+      }
+   </insert>
 </mapper>

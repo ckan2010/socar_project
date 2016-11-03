@@ -25,6 +25,7 @@ import com.socar.web.contants.Values;
 import com.socar.web.domains.AdminDTO;
 import com.socar.web.domains.CarDTO;
 import com.socar.web.domains.Command;
+import com.socar.web.domains.CouponDTO;
 import com.socar.web.domains.CustomerDTO;
 import com.socar.web.domains.Retval;
 import com.socar.web.service.CouponService;
@@ -257,10 +258,14 @@ public class AdminController {
 		}
 		return retval;
 	}
+	@RequestMapping(value="/car_regist",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody  Retval car_regist(@RequestBody CarDTO param) {		
+		car_service.regist(param);
+		retval.setMessage("success");
+		return retval;
+	}
 	@RequestMapping("/coupon_list/{pgNum}")
 	public @ResponseBody HashMap<String,Object> coupon_list(@PathVariable String pgNum) {
-		logger.info("COUPON LIST IS START ");
-		logger.info("COUPON LIST PGNUM IS {}",pgNum);
 		int[] rows = new int[2];
 		int[] pages = new int[3];
 		HashMap<String,Object> map = new HashMap<String,Object>();		
@@ -270,13 +275,6 @@ public class AdminController {
 		rows = Pagination.getRows(totCount, Integer.parseInt(pgNum), Values.PG_SIZE);
 		command.setStart(rows[0]);
 		command.setEnd(rows[1]);
-		logger.info("pgSize IS {}",Values.PG_SIZE);
-		logger.info("totCount IS {}",totCount);
-		logger.info("totPg IS {}",pages[2]);
-		logger.info("startPg IS {}",pages[0]);
-		logger.info("pgNum IS {}",Integer.parseInt(pgNum));
-		logger.info("lastPg IS {}",pages[1]);
-		logger.info("groupSize IS {}",Values.GROUP_SIZE);
 		map.put("list", coupon_service.list(command));
 		map.put("pgSize",Values.PG_SIZE);
 		map.put("totCount",totCount);
@@ -293,6 +291,10 @@ public class AdminController {
 			@PathVariable("keyword")String keyword,
 			@PathVariable("pgNum")String pgNum
 			) {
+		logger.info("COUPON SEARCH {}","EXEUTE");
+		logger.info("COUPON KEYFIELD IS {}",keyField);
+		logger.info("COUPON KEYWORD IS {}",keyword);
+		logger.info("COUPON PGNUM IS {}",pgNum);
 		int[] rows = new int[2];
 		int[] pages = new int[3];
 		HashMap<String,Object> map = new HashMap<String,Object>();
@@ -314,5 +316,23 @@ public class AdminController {
 		map.put("groupSize", Values.GROUP_SIZE);
 		return map;
 	}
-	
+	@RequestMapping("/couponUpdate/{keyField}/{keyword}")
+	public @ResponseBody  CouponDTO couponupdate(@PathVariable("keyField") String keyField,
+			@PathVariable("keyword")String keyword) {
+		command.setKeyField(keyField);
+		command.setKeyword(keyword);
+		return (CouponDTO) coupon_service.coupon_find_by_seq(command);
+	}
+	@RequestMapping(value="/coupon_update",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody  Retval coupon_update(@RequestBody CouponDTO param) {				
+		coupon_service.update(param);
+		retval.setMessage("success");
+		return retval;
+	}
+	@RequestMapping(value="/coupon_regist",method=RequestMethod.POST,consumes="application/json")
+	public @ResponseBody  Retval coupon_regist(@RequestBody CouponDTO param) {		
+		coupon_service.regist(param);
+		retval.setMessage("success");
+		return retval;
+	}
 }
